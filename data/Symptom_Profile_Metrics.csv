@@ -1,0 +1,132 @@
+symptom,patient_frequency,patient_prevalence_pct,diseases_affected_count,disease_breadth_pct,specificity_class,specificity_score,primary_diseases
+fatigue,1932,39.27,17,41.46,Universal Chameleon (Non-Specific),0.1,Bronchial Asthma; Chicken pox; Common Cold (+14 more)
+vomiting,1914,38.9,17,41.46,Universal Chameleon (Non-Specific),0.1,Alcoholic hepatitis; Chronic cholestasis; Dengue (+14 more)
+high_fever,1362,27.68,12,29.27,Universal Chameleon (Non-Specific),0.1,AIDS; Bronchial Asthma; Chicken pox (+9 more)
+headache,1134,23.05,10,24.39,Universal Chameleon (Non-Specific),0.1,Chicken pox; Common Cold; Dengue (+7 more)
+loss_of_appetite,1152,23.41,10,24.39,Universal Chameleon (Non-Specific),0.1,Chicken pox; Chronic cholestasis; Dengue (+7 more)
+nausea,1146,23.29,10,24.39,Universal Chameleon (Non-Specific),0.1,Chronic cholestasis; Dengue; Hepatitis A (+7 more)
+abdominal_pain,1032,20.98,9,21.95,Moderate Specificity (Polyspecific),0.4,Alcoholic hepatitis; Chronic cholestasis; Hepatitis A (+6 more)
+yellowish_skin,912,18.54,8,19.51,Moderate Specificity (Polyspecific),0.4,Alcoholic hepatitis; Chronic cholestasis; Hepatitis A (+5 more)
+chills,798,16.22,7,17.07,Moderate Specificity (Polyspecific),0.4,Allergy; Common Cold; Dengue (+4 more)
+skin_rash,786,15.98,7,17.07,Moderate Specificity (Polyspecific),0.4,Acne; Chicken pox; Dengue (+4 more)
+yellowing_of_eyes,816,16.59,7,17.07,Moderate Specificity (Polyspecific),0.4,Chronic cholestasis; Hepatitis A; Hepatitis B (+4 more)
+malaise,702,14.27,6,14.63,Moderate Specificity (Polyspecific),0.4,Chicken pox; Common Cold; Dengue (+3 more)
+itching,678,13.78,6,14.63,Moderate Specificity (Polyspecific),0.4,Chicken pox; Chronic cholestasis; Drug Reaction (+3 more)
+sweating,678,13.78,6,14.63,Moderate Specificity (Polyspecific),0.4,Heart attack; Hyperthyroidism; Hypoglycemia (+3 more)
+chest_pain,696,14.15,6,14.63,Moderate Specificity (Polyspecific),0.4,Common Cold; GERD; Heart attack (+3 more)
+joint_pain,684,13.9,6,14.63,Moderate Specificity (Polyspecific),0.4,Dengue; Hepatitis A; Hepatitis D (+3 more)
+diarrhoea,564,11.46,5,12.2,Moderate Specificity (Polyspecific),0.4,Gastroenteritis; Hepatitis A; Hyperthyroidism (+2 more)
+dark_urine,570,11.59,5,12.2,Moderate Specificity (Polyspecific),0.4,Hepatitis A; Hepatitis B; Hepatitis D (+2 more)
+cough,564,11.46,5,12.2,Moderate Specificity (Polyspecific),0.4,Bronchial Asthma; Common Cold; GERD (+2 more)
+irritability,474,9.63,4,9.76,High Specificity (Oligospecific),0.75,Hyperthyroidism; Hypoglycemia; Hypothyroidism (+1 more)
+lethargy,456,9.27,4,9.76,High Specificity (Oligospecific),0.75,Chicken pox; Diabetes; Hepatitis B (+1 more)
+breathlessness,450,9.15,4,9.76,High Specificity (Oligospecific),0.75,Bronchial Asthma; Heart attack; Pneumonia (+1 more)
+weight_loss,456,9.27,4,9.76,High Specificity (Oligospecific),0.75,Diabetes; Hyperthyroidism; Jaundice (+1 more)
+excessive_hunger,462,9.39,4,9.76,High Specificity (Oligospecific),0.75,Diabetes; Hyperthyroidism; Hypoglycemia (+1 more)
+muscle_pain,474,9.63,4,9.76,High Specificity (Oligospecific),0.75,Common Cold; Dengue; Hepatitis A (+1 more)
+dizziness,336,6.83,3,7.32,High Specificity (Oligospecific),0.75,Cervical spondylosis; Hypertension; Hypothyroidism
+blurred_and_distorted_vision,342,6.95,3,7.32,High Specificity (Oligospecific),0.75,Diabetes; Hypoglycemia; Migraine
+loss_of_balance,342,6.95,3,7.32,High Specificity (Oligospecific),0.75,Cervical spondylosis; Hypertension; Paroxysmal Positional Vertigo
+swelled_lymph_nodes,348,7.07,3,7.32,High Specificity (Oligospecific),0.75,Chicken pox; Common Cold; Tuberculosis
+mild_fever,354,7.2,3,7.32,High Specificity (Oligospecific),0.75,Chicken pox; Hepatitis A; Tuberculosis
+phlegm,354,7.2,3,7.32,High Specificity (Oligospecific),0.75,Common Cold; Pneumonia; Tuberculosis
+fast_heart_rate,234,4.76,2,4.88,High Specificity (Oligospecific),0.75,Hyperthyroidism; Pneumonia
+stomach_pain,222,4.51,2,4.88,High Specificity (Oligospecific),0.75,Drug Reaction; GERD
+indigestion,222,4.51,2,4.88,High Specificity (Oligospecific),0.75,Migraine; Peptic Ulcer Disease
+restlessness,228,4.63,2,4.88,High Specificity (Oligospecific),0.75,Diabetes; Hyperthyroidism
+abnormal_menstruation,240,4.88,2,4.88,High Specificity (Oligospecific),0.75,Hyperthyroidism; Hypothyroidism
+neck_pain,228,4.63,2,4.88,High Specificity (Oligospecific),0.75,Cervical spondylosis; Osteoarthritis
+constipation,228,4.63,2,4.88,High Specificity (Oligospecific),0.75,Hemorrhoids (Piles); Typhoid
+back_pain,228,4.63,2,4.88,High Specificity (Oligospecific),0.75,Cervical spondylosis; Dengue
+obesity,228,4.63,2,4.88,High Specificity (Oligospecific),0.75,Diabetes; Varicose veins
+family_history,228,4.63,2,4.88,High Specificity (Oligospecific),0.75,Bronchial Asthma; Hepatitis C
+painful_walking,228,4.63,2,4.88,High Specificity (Oligospecific),0.75,Arthritis; Osteoarthritis
+red_spots_over_body,234,4.76,2,4.88,High Specificity (Oligospecific),0.75,Chicken pox; Dengue
+stiff_neck,228,4.63,2,4.88,High Specificity (Oligospecific),0.75,Arthritis; Migraine
+swelling_joints,228,4.63,2,4.88,High Specificity (Oligospecific),0.75,Arthritis; Osteoarthritis
+muscle_weakness,234,4.76,2,4.88,High Specificity (Oligospecific),0.75,Arthritis; Hyperthyroidism
+depression,234,4.76,2,4.88,High Specificity (Oligospecific),0.75,Hypothyroidism; Migraine
+mood_swings,228,4.63,2,4.88,High Specificity (Oligospecific),0.75,Hyperthyroidism; Hypothyroidism
+continuous_sneezing,222,4.51,2,4.88,High Specificity (Oligospecific),0.75,Allergy; Common Cold
+acidity,222,4.51,2,4.88,High Specificity (Oligospecific),0.75,GERD; Migraine
+burning_micturition,216,4.39,2,4.88,High Specificity (Oligospecific),0.75,Drug Reaction; Urinary Tract Infection
+nodal_skin_eruptions,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Fungal infection
+swelling_of_stomach,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Alcoholic hepatitis
+acute_liver_failure,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Hepatitis E
+yellow_urine,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Hepatitis B
+throat_irritation,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Common Cold
+dehydration,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Gastroenteritis
+irregular_sugar_level,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Diabetes
+patches_in_throat,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,AIDS
+shivering,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Allergy
+muscle_wasting,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,AIDS
+ulcers_on_tongue,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,GERD
+sunken_eyes,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Gastroenteritis
+spotting_urination,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Drug Reaction
+weight_gain,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Hypothyroidism
+anxiety,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Hypoglycemia
+cold_hands_and_feets,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Hypothyroidism
+bruising,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Varicose veins
+cramps,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Varicose veins
+bloody_stool,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Hemorrhoids (Piles)
+irritation_in_anus,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Hemorrhoids (Piles)
+pain_in_anal_region,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Hemorrhoids (Piles)
+runny_nose,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Common Cold
+weakness_in_limbs,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Cervical spondylosis
+pain_during_bowel_movements,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Hemorrhoids (Piles)
+sinus_pressure,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Common Cold
+redness_of_eyes,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Common Cold
+congestion,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Common Cold
+pain_behind_the_eyes,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Dengue
+enlarged_thyroid,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Hypothyroidism
+extra_marital_contacts,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,AIDS
+brittle_nails,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Hypothyroidism
+swollen_extremeties,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Hypothyroidism
+movement_stiffness,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Arthritis
+slurred_speech,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Hypoglycemia
+knee_pain,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Osteoarthritis
+hip_joint_pain,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Osteoarthritis
+drying_and_tingling_lips,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Hypoglycemia
+spinning_movements,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Paroxysmal Positional Vertigo
+unsteadiness,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Paroxysmal Positional Vertigo
+weakness_of_one_body_side,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Paralysis (brain hemorrhage)
+continuous_feel_of_urine,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Urinary Tract Infection
+foul_smell_of_urine,102,2.07,1,2.44,Monospecific (Pathognomonic),1.0,Urinary Tract Infection
+bladder_discomfort,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Urinary Tract Infection
+loss_of_smell,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Common Cold
+toxic_look_(typhos),114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Typhoid
+swollen_legs,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Varicose veins
+puffy_face_and_eyes,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Hypothyroidism
+swollen_blood_vessels,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Varicose veins
+altered_sensorium,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Paralysis (brain hemorrhage)
+passage_of_gases,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Peptic Ulcer Disease
+internal_itching,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Peptic Ulcer Disease
+dischromic_patches,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Fungal infection
+watering_from_eyes,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Allergy
+increased_appetite,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Diabetes
+polyuria,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Diabetes
+belly_pain,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Typhoid
+rusty_sputum,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Pneumonia
+lack_of_concentration,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Hypertension
+visual_disturbances,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Migraine
+receiving_blood_transfusion,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Hepatitis B
+receiving_unsterile_injections,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Hepatitis B
+coma,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Hepatitis E
+stomach_bleeding,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Hepatitis E
+mucoid_sputum,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Bronchial Asthma
+distention_of_abdomen,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Alcoholic hepatitis
+history_of_alcohol_consumption,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Alcoholic hepatitis
+blood_in_sputum,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Tuberculosis
+fluid_overload,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Alcoholic hepatitis
+prominent_veins_on_calf,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Varicose veins
+palpitations,120,2.44,1,2.44,Monospecific (Pathognomonic),1.0,Hypoglycemia
+pus_filled_pimples,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Acne
+blackheads,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Acne
+scurring,108,2.2,1,2.44,Monospecific (Pathognomonic),1.0,Acne
+skin_peeling,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Psoriasis
+silver_like_dusting,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Psoriasis
+small_dents_in_nails,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Psoriasis
+inflammatory_nails,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Psoriasis
+blister,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Impetigo
+red_sore_around_nose,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Impetigo
+yellow_crust_ooze,114,2.32,1,2.44,Monospecific (Pathognomonic),1.0,Impetigo

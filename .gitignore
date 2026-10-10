@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Environment & OS files
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+
+# Tableau temporary & recovery files
+*.twb~
+*.tfl~
+*.hyper.temp

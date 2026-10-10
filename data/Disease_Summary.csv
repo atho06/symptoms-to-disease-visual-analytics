@@ -1,0 +1,42 @@
+prognosis,clinical_domain,total_cases,unique_symptom_patterns,active_symptoms_count,mean_symptom_load,min_symptom_load,max_symptom_load,std_symptom_load,most_similar_disease,max_similarity_score
+Common Cold,Infectious Diseases,120,9,17,16.6,16,17,0.49,Pneumonia,0.5019
+Tuberculosis,Infectious Diseases,120,9,16,15.6,15,16,0.49,Pneumonia,0.6667
+Dengue,Infectious Diseases,120,10,14,13.55,13,14,0.5,Malaria,0.5708
+Hepatitis E,Hepato-Biliary & Digestive,120,9,13,12.6,12,13,0.49,Hepatitis D,0.8296
+Hypothyroidism,Endocrinology & Metabolism,120,8,13,12.6,12,13,0.49,Hyperthyroidism,0.3362
+Hypoglycemia,Endocrinology & Metabolism,120,9,12,11.6,11,12,0.49,Malaria,0.401
+Hepatitis B,Hepato-Biliary & Digestive,120,9,12,11.6,11,12,0.49,Hepatitis D,0.5722
+Hepatitis A,Hepato-Biliary & Digestive,120,9,11,10.6,10,11,0.49,Hepatitis D,0.7977
+Pneumonia,Infectious Diseases,120,9,11,10.6,10,11,0.49,Tuberculosis,0.6667
+Typhoid,Infectious Diseases,120,9,11,10.6,10,11,0.49,Malaria,0.6357
+Hyperthyroidism,Endocrinology & Metabolism,120,9,11,10.6,10,11,0.49,Diabetes,0.3719
+Chicken pox,Infectious Diseases,120,10,11,10.55,10,11,0.5,Dengue,0.5646
+Diabetes,Endocrinology & Metabolism,120,9,10,9.6,9,10,0.49,Hyperthyroidism,0.3719
+Migraine,Neurology & Musculoskeletal,120,10,9,8.55,8,9,0.5,Hypoglycemia,0.3881
+Hepatitis D,Hepato-Biliary & Digestive,120,10,9,8.55,8,9,0.5,Hepatitis E,0.8296
+Jaundice,Hepato-Biliary & Digestive,120,9,8,7.6,7,8,0.49,Hepatitis D,0.5893
+Malaria,Infectious Diseases,120,8,8,7.6,7,8,0.49,Typhoid,0.6357
+Alcoholic hepatitis,Hepato-Biliary & Digestive,120,8,7,6.65,6,7,0.48,Chronic cholestasis,0.4286
+Chronic cholestasis,Hepato-Biliary & Digestive,120,8,7,6.65,6,7,0.48,Hepatitis D,0.7559
+Varicose veins,Cardiovascular & Renal,120,8,7,6.6,6,7,0.49,Diabetes,0.2383
+Psoriasis,Dermatology & Allergy,120,7,6,5.7,5,6,0.46,Dengue,0.2141
+Osteoarthritis,Neurology & Musculoskeletal,120,7,6,5.7,5,6,0.46,Arthritis,0.3651
+Paroxysmal Positional Vertigo,Neurology & Musculoskeletal,120,7,6,5.65,5,6,0.48,Malaria,0.4366
+Hepatitis C,Hepato-Biliary & Digestive,120,7,6,5.65,5,6,0.48,Hepatitis D,0.6791
+Bronchial Asthma,Cardiovascular & Renal,120,7,6,5.6,5,6,0.49,Pneumonia,0.4808
+Peptic Ulcer Disease,Hepato-Biliary & Digestive,120,7,6,5.6,5,6,0.49,Chronic cholestasis,0.4628
+GERD,Hepato-Biliary & Digestive,120,7,6,5.55,5,6,0.5,Heart attack,0.4139
+Arthritis,Neurology & Musculoskeletal,120,6,5,4.75,4,5,0.43,Osteoarthritis,0.3651
+Hemorrhoids (Piles),Hepato-Biliary & Digestive,120,6,5,4.75,4,5,0.43,Typhoid,0.1329
+Impetigo,Dermatology & Allergy,120,6,5,4.65,4,5,0.48,Chicken pox,0.2582
+Cervical spondylosis,Neurology & Musculoskeletal,120,6,5,4.65,4,5,0.48,Hypertension,0.4105
+Hypertension,Cardiovascular & Renal,120,6,5,4.6,4,5,0.49,Cervical spondylosis,0.4105
+Drug Reaction,Dermatology & Allergy,120,6,5,4.55,4,5,0.5,Fungal infection,0.4545
+Paralysis (brain hemorrhage),Neurology & Musculoskeletal,120,5,4,3.65,3,4,0.48,Paroxysmal Positional Vertigo,0.406
+Acne,Dermatology & Allergy,120,5,4,3.65,3,4,0.48,Fungal infection,0.2602
+AIDS,Infectious Diseases,120,5,4,3.65,3,4,0.48,Bronchial Asthma,0.2162
+Gastroenteritis,Hepato-Biliary & Digestive,120,5,4,3.65,3,4,0.48,Malaria,0.3485
+Urinary Tract Infection,Cardiovascular & Renal,120,5,4,3.65,3,4,0.48,Drug Reaction,0.2178
+Heart attack,Cardiovascular & Renal,120,5,4,3.65,3,4,0.48,Tuberculosis,0.4936
+Allergy,Dermatology & Allergy,120,5,4,3.6,3,4,0.49,Common Cold,0.2359
+Fungal infection,Dermatology & Allergy,120,5,4,3.6,3,4,0.49,Drug Reaction,0.4545
