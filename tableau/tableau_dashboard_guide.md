@@ -24,176 +24,205 @@ When presenting to your faculty evaluator, deliver this exact narrative:
 
 ## 2. Directory Audit: The Files in Your `data/` Folder
 
-Your `d:\College\sem5\Data Viz\case_study\data\` directory contains the raw Kaggle files you downloaded, alongside the pipeline-generated tidy tables:
+Your `d:\College\sem5\Data Viz\case_study\data\` directory contains your downloaded Kaggle files and the pipeline-generated tidy tables:
 
 | File Name in `data/` | Origin | Dimensions | Primary Role in Tableau |
 | :--- | :--- | :--- | :--- |
-| **`train_disease.csv`** | **Raw Kaggle Download** | 4,920 rows $\times$ 134 cols | Your primary raw dataset. Contains 132 binary symptom flags + `prognosis` + dirty trailing column `Unnamed: 133`. |
+| **`train_disease.csv`** | **Raw Kaggle Download** | 4,920 rows $\times$ 134 cols | Your primary raw dataset (132 symptom flags + `prognosis` + `Unnamed: 133`). |
 | **`test_disease.csv`** | **Raw Kaggle Download** | 42 rows $\times$ 133 cols | Independent test split provided in the Kaggle benchmark. |
-| **`Training_Cleaned.csv`** | Pipeline Output | 4,920 rows $\times$ 135 cols | Cleaned wide table with `patient_id`, standardized disease names, `clinical_domain`, and row-level `symptom_count`. |
-| **`Disease_Symptoms_Long.csv`** | Pipeline Output | 36,648 rows $\times$ 8 cols | **Master Long Table:** Unpivoted / melted version. Allows instant drag-and-drop filtering by `symptom` without manually managing 131 wide columns. |
-| **`Symptom_Profile_Metrics.csv`** | Pipeline Output | 131 rows $\times$ 8 cols | **Used for Sheet 1 & Sheet 4:** Pre-calculated prevalence, disease breadth, and specificity classes. |
-| **`Disease_Summary.csv`** | Pipeline Output | 41 rows $\times$ 11 cols | **Used for Sheet 2:** Disease-level complexity, mean/min/max symptom loads, and domain groupings. |
+| **`Training_Cleaned.csv`** | Pipeline Output | 4,920 rows $\times$ 135 cols | Cleaned wide table with `patient_id`, standardized disease names, `clinical_domain`, and `symptom_count`. |
+| **`Disease_Symptoms_Long.csv`** | Pipeline Output | 36,648 rows $\times$ 8 cols | Master unpivoted long format (used for multi-filter general exploration). |
+| **`Symptom_Profile_Metrics.csv`** | Pipeline Output | 131 rows $\times$ 8 cols | **Used for Sheet 1 & Sheet 4:** Pre-calculated prevalence, ubiquity, and specificity classes. |
+| **`Disease_Summary.csv`** | Pipeline Output | 41 rows $\times$ 11 cols | **Used for Sheet 2:** Disease-level complexity, active symptom counts, and clinical domain mappings. |
 | **`Disease_Pairwise_Similarity.csv`** | Pipeline Output | 820 rows $\times$ 7 cols | **Used for Sheet 3:** Precomputed pairwise cosine similarities and clinical ambiguity risk tiers. |
 | **`Disease_Similarity_Matrix.csv`** | Pipeline Output | 41 rows $\times$ 42 cols | 41 $\times$ 41 symmetric matrix for full correlation/overlap heatmaps. |
 
 ---
 
-## 3. How to Connect Tableau to Your Data
-
-### Method A: Using the Prepared Tidy Tables (Recommended & Fastest)
-In Tableau, analyzing wide datasets with 131 binary columns is notoriously tedious. Connecting directly to our prepared tables allows you to build stunning sheets in seconds:
-1. Open **Tableau Desktop** or **Tableau Public**.
-2. On the left sidebar under **Connect** $\rightarrow$ **To a File**, click **Text file**.
-3. Navigate to: `d:\College\sem5\Data Viz\case_study\data\`.
-4. Select the specific CSV for each sheet as detailed below (or add multiple connections).
+## 3. Ultra-Detailed Step-by-Step Worksheet Construction
 
 ---
-
-### Method B: Directly from Raw `train_disease.csv` (If Faculty Asks to See Raw Data)
-If your faculty asks: *"Can you show me how you pivoted the raw Kaggle dataset directly inside Tableau?"*:
-1. Connect to `data/train_disease.csv`.
-2. In the Data Source preview window:
-   * Click on the column header `itching`, scroll to the right, hold **Shift**, and click on the last symptom column before `prognosis`.
-   * Right-click any selected column header and select **Pivot**.
-   * Tableau automatically converts the 131 columns into two fields:
-     * `Pivot Field Names` $\rightarrow$ Rename to **`symptom`**.
-     * `Pivot Field Values` $\rightarrow$ Rename to **`is_present`**.
-   * Right-click `Unnamed: 133` and select **Hide** (to drop the ghost column).
-   * Filter the data source to keep only `is_present = 1`.
-*(Notice that this produces the exact same structure as our pre-generated `Disease_Symptoms_Long.csv`!)*
-
----
-
-## 4. Step-by-Step Worksheet Construction
 
 ### 📊 Worksheet 1: The "Chameleon" Spectrum (Symptom Ubiquity & Specificity)
-* **Objective:** Answer *Which symptoms span the most diseases vs. which are unique anchors?*
-* **Data Source:** Connect to `data/Symptom_Profile_Metrics.csv`.
-* **Step-by-Step Setup:**
-  1. Drag **`symptom`** to **Rows**.
-  2. Drag **`diseases_affected_count`** to **Columns**.
-  3. Sort the bars: Click the sort icon on the axis or right-click `symptom` $\rightarrow$ **Sort** $\rightarrow$ Descending by field `diseases_affected_count`.
-  4. Drag **`specificity_class`** onto **Color** on the Marks card.
-     * Edit Colors:
-       * `Universal Chameleon (Non-Specific)` ($\ge 10$ diseases): **Red / Crimson** (`#C0392B`)
-       * `Moderate Specificity (Polyspecific)`: **Amber / Orange** (`#E67E22`)
-       * `High Specificity (Oligospecific)`: **Steel Blue** (`#2980B9`)
-       * `Monospecific (Pathognomonic)`: **Forest Green** (`#27AE60`)
-  5. Add Labels: Drag **`patient_prevalence_pct`** onto **Label**.
-  6. Filter to Top Symptoms: Drag `diseases_affected_count` to **Filters** $\rightarrow$ select Top 15 (or range at least 5).
-  7. Add Reference Line: Right-click the horizontal axis $\rightarrow$ **Add Reference Line** $\rightarrow$ Constant value `10` $\rightarrow$ Label: *"Universal Chameleon Threshold"*.
-* **Defense Narrative ("Explain Your Choices"):**
-  * *Why this graph?* Horizontal bar chart permits clear label reading without text rotation.
-  * *Why this colour?* Crimson warns of high diagnostic ambiguity; Forest green identifies pathognomonic anchors.
-  * *Why this aggregation?* Distinct disease count (`COUNTD(prognosis)`).
-  * *What should the reader notice?* Fatigue and vomiting appear in 17 diseases each (~41.5% of conditions), while 80 symptoms are entirely unique to a single disease.
+
+* **Objective:** Answer *Which symptoms span the most diseases (chameleons) vs. which are unique anchors?*
+* **Active Data Source:** Click on **`Symptom_Profile_Metrics`** in the top-left Data pane.
+
+#### Exact Click-by-Click Steps:
+1. **Put Symptoms on Rows:**
+   * In the left sidebar under Tables, click **`symptom`** and drag it onto the **Rows** shelf at the top.
+2. **Put Disease Count on Columns:**
+   * From the left sidebar, click **`diseases_affected_count`** and drag it onto the **Columns** shelf.
+3. **Sort Descending:**
+   * Look at the top toolbar (just under the main menu). Click the **Sort Descending** button (an icon with horizontal bars and an arrow pointing down from longest to shortest).
+   * *(Alternatively: Right-click `symptom` on Rows $\rightarrow$ **Sort** $\rightarrow$ Sort By: **Field** $\rightarrow$ Field Name: `diseases_affected_count` $\rightarrow$ Sort Order: **Descending** $\rightarrow$ close popup).*
+4. **Color by Specificity:**
+   * Drag **`specificity_class`** from the left sidebar onto **Color** on the Marks card.
+   * *To set the colors:* Click **Color** on the Marks card $\rightarrow$ click **Edit Colors...**:
+     * `Universal Chameleon (Non-Specific)` $\rightarrow$ Red / Crimson
+     * `Moderate Specificity (Polyspecific)` $\rightarrow$ Orange / Amber
+     * `High Specificity (Oligospecific)` $\rightarrow$ Blue
+     * `Monospecific (Pathognomonic)` $\rightarrow$ Forest Green
+     * Click **OK**.
+5. **Add Prevalence Labels:**
+   * Drag **`patient_prevalence_pct`** from the left sidebar onto **Label** on the Marks card so each bar displays its percentage.
+6. **Filter to Top 15 Symptoms:**
+   * Drag **`symptom`** from the left sidebar onto the **Filters** shelf.
+   * In the popup dialog, click on the **Top** tab at the top.
+   * Select **By field** $\rightarrow$ leave it on **Top** $\rightarrow$ type **`15`** $\rightarrow$ choose by **`diseases_affected_count`** $\rightarrow$ **Sum**.
+   * Click **OK**.
+7. **Add the Chameleon Cutoff Line at 10:**
+   * In the top-left corner (next to the word *Data*), click the **`Analytics`** tab.
+   * Under "Custom", click and drag **Constant Line** onto your chart $\rightarrow$ drop it on **Table $\rightarrow$ SUM(diseases_affected_count)**.
+   * A small box appears on the bottom axis: type **`10`** and hit **Enter**!
+   * Right-click the line $\rightarrow$ **Edit...** $\rightarrow$ Next to **Label**, select **Custom** $\rightarrow$ type `Universal Chameleon Cutoff (10)` $\rightarrow$ click **OK**.
+8. **Rename the Tab:** Double-click the tab at the bottom and name it `Sheet 1 - Chameleon Spectrum`.
 
 ---
 
 ### 📊 Worksheet 2: Patient Symptom Burden by Clinical Domain
+
 * **Objective:** Answer *How does patient symptom burden vary across conditions and clinical specialties?*
-* **Data Source:** Connect to `data/Training_Cleaned.csv` (or `data/Disease_Summary.csv`).
-* **Step-by-Step Setup:**
-  1. Drag **`prognosis`** to **Rows**.
-  2. Drag **`symptom_count`** to **Columns**.
-  3. Right-click `prognosis` on Rows $\rightarrow$ **Sort** $\rightarrow$ Sort by Field `symptom_count` $\rightarrow$ Aggregation: **Median** (or Average), Ascending.
-  4. Drag **`clinical_domain`** onto **Color** on the Marks card.
-     * Colors for the 6 domains:
-       * *Infectious Diseases:* Red (`#E74C3C`)
-       * *Hepato-Biliary & Digestive:* Orange (`#F39C12`)
-       * *Dermatology & Allergy:* Purple (`#9B59B6`)
-       * *Endocrinology & Metabolism:* Green (`#2ECC71`)
-       * *Cardiovascular & Renal:* Dark Slate (`#34495E`)
-       * *Neurology & Musculoskeletal:* Blue (`#3498DB`)
-  5. If using `Training_Cleaned.csv`: Change Marks type to **Circle**, and in the Analytics pane, drag **Box Plot** onto the view.
-  6. Add Annotations:
-     * Right-click near Common Cold / Tuberculosis $\rightarrow$ **Annotate** $\rightarrow$ **Point** $\rightarrow$ *"High Burden: 14 to 17 symptoms"*.
-     * Right-click near Heart Attack / UTI $\rightarrow$ **Annotate** $\rightarrow$ **Point** $\rightarrow$ *"Low Burden: 4 symptoms"*.
-* **Defense Narrative ("Explain Your Choices"):**
-  * *Why this graph?* Boxplot / dot-distribution illustrates both central tendency and patient variations across all 41 conditions.
-  * *Why this colour?* Six distinct hues represent hospital clinical specialty departments.
-  * *Why this aggregation?* Row-level sum of active symptoms per patient encounter, aggregated by Mean/Median per disease.
-  * *What should the reader notice?* A dramatic 4-fold disparity: Common Cold (17), TB (16), and Dengue (14) represent high-burden multi-system infections; Heart Attack, UTI, and Paralysis present with strictly 4 symptoms.
+* **Active Data Source:** Click on **`Disease_Summary`** in the top-left Data pane.
+
+#### Exact Click-by-Click Steps:
+1. **Put Diseases on Rows:**
+   * Drag **`Prognosis`** from the left sidebar onto the **Rows** shelf.
+2. **Put Symptom Count on Columns:**
+   * Drag **`Active Symptoms Count`** from the left sidebar onto the **Columns** shelf.
+   * *(Note: If `CNT(Disease_Summary)` is already on Columns, drag it off into blank space to delete it).*
+3. **Sort the Bars:**
+   * In the top toolbar, click the **Sort Ascending** button (icon with bars getting longer from top to bottom) so the shortest bars are at the top and the longest at the bottom.
+4. **Color by Clinical Domain:**
+   * Drag **`Clinical Domain`** from the left sidebar onto **Color** on the Marks card.
+   * *Domain colors:*
+     * Infectious Diseases: Red (`#E74C3C`)
+     * Hepato-Biliary & Digestive: Orange (`#F39C12`)
+     * Dermatology & Allergy: Purple (`#9B59B6`)
+     * Endocrinology & Metabolism: Green (`#2ECC71`)
+     * Cardiovascular & Renal: Dark Slate (`#34495E`)
+     * Neurology & Musculoskeletal: Blue (`#3498DB`)
+5. **Add Numbers on the Bars:**
+   * Drag **`Active Symptoms Count`** from the left sidebar onto **Label** on the Marks card.
+6. **Rename the Tab:** Double-click the tab at the bottom and name it `Sheet 2 - Symptom Burden`.
 
 ---
 
 ### 📊 Worksheet 3: Diagnostic Ambiguity & High-Risk Disease Pairs
-* **Objective:** Answer *Which disease pairs share severe symptom profile similarity, creating critical misdirection risks?*
-* **Data Source:** Connect to `data/Disease_Pairwise_Similarity.csv`.
-* **Step-by-Step Setup:**
-  1. Create a combined label: In Tableau, create a **Calculated Field** named `Disease Pair`:
+
+* **Objective:** Answer *Which disease pairs share severe symptom profile similarity ($\ge 60\%$), creating triage misdirection risks?*
+* **Active Data Source:** Click on **`Disease_Pairwise_Similarity`** in the top-left Data pane.
+
+#### Exact Click-by-Click Steps:
+1. **Create the Combined Disease Pair Field:**
+   * Right-click any blank space in the left Data sidebar $\rightarrow$ click **Create Calculated Field...**
+   * In the title box at the top, name it: `Disease Pair`
+   * In the formula box, type:
      ```tableau
      [disease_a] + "  ↔  " + [disease_b]
      ```
-  2. Drag **`Disease Pair`** to **Rows**.
-  3. Drag **`cosine_similarity`** to **Columns**.
-  4. Filter to High & Moderate Risk: Drag **`risk_tier`** to **Filters** $\rightarrow$ check `High Ambiguity (>=0.60)` and `Moderate Ambiguity (0.40-0.59)`.
-  5. Sort: Sort `Disease Pair` descending by `cosine_similarity`.
-  6. Color by Specialty: Drag **`same_domain`** onto **Color**:
-     * `True` (Intra-domain confusion, e.g. Viral Hepatitis): **Crimson** (`#C0392B`)
-     * `False` (Cross-domain confusion, e.g. Malaria vs. Typhoid): **Violet / Purple** (`#8E44AD`)
-  7. Add Label: Drag `cosine_similarity` onto **Label** $\rightarrow$ Format as Percentage with 1 decimal place (`0.0%`).
-  8. Add Safety Line: Add a Reference Line on the X-axis at `0.60` $\rightarrow$ Label: *"High Ambiguity Risk Cutoff (60%)"*.
-* **Defense Narrative ("Explain Your Choices"):**
-  * *Why this graph?* Horizontal ranked bar isolates the top dangerous confusion pairs where symptom screening alone fails.
-  * *Why this colour?* Distinguishes within-specialty confusion from cross-specialty overlap.
-  * *Why this aggregation?* Pairwise Cosine Similarity computed across 131-dimensional binary symptom vectors.
-  * *What should the reader notice?* Hepatitis D & E have 83.0% overlap; Hepatitis D & A have 79.8%; Pneumonia & TB share 66.7%; Malaria & Typhoid share 63.6%. These pairs mandate automated laboratory reflex testing.
+     *(Type only the text above — do NOT include backticks or markdown code fences).*
+   * Make sure it says **"The calculation is valid"** at the bottom left $\rightarrow$ click **OK**.
+2. **Put Disease Pair on Rows:**
+   * Drag **`Disease Pair`** from the left sidebar onto the **Rows** shelf.
+3. **Put Similarity on Columns:**
+   * Drag **`cosine_similarity`** from the left sidebar onto the **Columns** shelf.
+4. **Filter to High and Moderate Ambiguity:**
+   * Drag **`risk_tier`** from the left sidebar onto the **Filters** shelf.
+   * In the checkbox popup that opens, check **both**:
+     * `High Ambiguity (>=0.60)`
+     * `Moderate Ambiguity (0.40-0.59)`
+   * Click **OK**.
+5. **Sort Descending:**
+   * Click the **Sort Descending** button on the top toolbar (so the highest similarity pairs like Hepatitis D ↔ E are at the very top).
+6. **Color by Within-Specialty vs. Cross-Specialty:**
+   * Drag **`same_domain`** from the left sidebar onto **Color** on the Marks card.
+   * Click **Color** on the Marks card $\rightarrow$ **Edit Colors...**:
+     * `True` (Confusion within the same department, e.g. Viral Hepatitis): **Crimson / Red**
+     * `False` (Confusion across different departments, e.g. Malaria ↔ Typhoid): **Purple / Violet**
+     * Click **OK**.
+7. **Add Percentage Labels:**
+   * Drag **`cosine_similarity`** from the left sidebar onto **Label** on the Marks card.
+   * *To format it as a percentage (e.g. 83.0%):*
+     * Right-click the `SUM(cosine_similarity)` pill on the Marks card (the one with the small `T` icon next to it) $\rightarrow$ click **Format...**
+     * On the left pane under "Default", click the **Numbers** dropdown $\rightarrow$ choose **Percentage** $\rightarrow$ set Decimal places to `1`.
+8. **Add the 60% Safety Threshold Line:**
+   * Click the **`Analytics`** tab at the top-left (next to *Data*).
+   * Under "Custom", drag **Constant Line** onto your chart $\rightarrow$ drop it on **Table $\rightarrow$ SUM(cosine_similarity)**.
+   * A small yellow box appears on the bottom axis: type **`0.6`** and press **Enter**!
+   * Right-click that line on your chart $\rightarrow$ click **Edit...**
+   * Next to **Label**, choose **Custom** from the dropdown $\rightarrow$ in the text box type:  
+     `High Ambiguity Risk Cutoff (60%)`
+   * Click **OK**.
+9. **Rename the Tab:** Double-click the tab at the bottom and name it `Sheet 3 - Ambiguity Pairs`.
 
 ---
 
 ### 📊 Worksheet 4: Feature Imbalance & Pareto 80/20 Curve
-* **Objective:** Answer *Where does the dataset exhibit structural feature imbalance?*
-* **Data Source:** Connect to `data/Symptom_Profile_Metrics.csv`.
-* **Step-by-Step Setup:**
-  1. Drag **`symptom`** to **Columns**.
-  2. Drag **`patient_frequency`** to **Rows**.
-  3. Sort `symptom` descending by `patient_frequency`.
-  4. Create Cumulative Percentage: Drag `patient_frequency` to **Rows** a second time (you now have two rows).
-     * Right-click the second `patient_frequency` pill on Rows $\rightarrow$ **Quick Table Calculation** $\rightarrow$ **Running Total**.
-     * Right-click it again $\rightarrow$ **Edit Table Calculation** $\rightarrow$ Check **Perform secondary calculation** $\rightarrow$ Secondary Calculation Type: **Percent of Total**.
-     * Change its Marks type to **Line** (Color: Vivid Orange `#E67E22`).
-     * Change the first Marks card to **Bar** (Color: Navy Slate `#34495E`).
-     * Right-click the second pill on Rows $\rightarrow$ Select **Dual Axis**.
-     * Right-click the right axis $\rightarrow$ Select **Synchronize Axis** (or set scale 0 to 100%).
-  5. Add Reference Line: Right-click the right percentage axis $\rightarrow$ **Add Reference Line** $\rightarrow$ Constant value `80%` (or `0.80`) $\rightarrow$ Label: *"80% Pareto Cutoff"*.
-* **Defense Narrative ("Explain Your Choices"):**
-  * *Why this graph?* Dual-axis Pareto chart visually demonstrates the 80/20 rule of symptom prevalence.
-  * *Why this colour?* Neutral navy for frequency bars; high-contrast orange for the cumulative curve.
-  * *What should the reader notice?* Just 28 out of 131 symptoms account for 50% of all symptom occurrences, while the remaining symptoms form an ultra-sparse long tail.
+
+* **Objective:** Answer *Where does the dataset exhibit structural feature imbalance (the Pareto 80/20 rule)?*
+* **Active Data Source:** Click the **New Worksheet** icon at the bottom. In the top-left Data pane, click **`Symptom_Profile_Metrics`**.
+
+#### Exact Click-by-Click Steps:
+1. **Put Symptoms on Columns:**
+   * Drag **`symptom`** from the left sidebar onto the **Columns** shelf.
+2. **Put Frequency on Rows:**
+   * Drag **`patient_frequency`** from the left sidebar onto the **Rows** shelf.
+3. **Sort Descending:**
+   * Click the **Sort Descending** button on the top toolbar (so the highest frequency symptoms like fatigue and vomiting are on the left).
+4. **Create the Second Measure (Cumulative Percentage Line):**
+   * Drag **`patient_frequency`** from the left sidebar onto the **Rows** shelf a **SECOND** time (you will now see two green `SUM(patient_frequency)` pills on Rows).
+   * Right-click the **second** `SUM(patient_frequency)` pill on Rows $\rightarrow$ hover over **Quick Table Calculation** $\rightarrow$ click **Running Total**.
+   * Right-click that **same second pill** again $\rightarrow$ click **Edit Table Calculation...**:
+     * In the popup, check the box that says **Perform secondary calculation**.
+     * Next to **Secondary Calculation Type**, select **Percent of Total**.
+     * Close the popup window (click `X`).
+5. **Combine into a Dual Axis:**
+   * Right-click that second pill on Rows $\rightarrow$ click **Dual Axis**.
+   * Notice that your chart now has two axes: Left axis has counts (0 to 2000), right axis has percentages (0% to 100%).
+6. **Assign Chart Types (Marks Card):**
+   * Look at the Marks card area. You will see three tabs: `All`, `SUM(patient_frequency)`, and `SUM(patient_frequency) (2)`.
+   * Click on the **`SUM(patient_frequency)`** tab $\rightarrow$ change the dropdown from Automatic to **Bar** $\rightarrow$ click **Color** and select Dark Slate / Navy Blue.
+   * Click on the **`SUM(patient_frequency) (2)`** tab $\rightarrow$ change the dropdown from Automatic to **Line** $\rightarrow$ click **Color** and select Vivid Orange (`#E67E22`).
+7. **Add the 80% Pareto Reference Line:**
+   * Click the **`Analytics`** tab at the top-left (next to *Data*).
+   * Drag **Constant Line** onto your chart $\rightarrow$ drop it on the **right-hand percentage axis** (`SUM(patient_frequency) (2)`).
+   * In the small box, type **`0.8`** (or `80%`) and hit **Enter**!
+   * Right-click the line $\rightarrow$ **Edit...** $\rightarrow$ Label: **Custom** $\rightarrow$ type `80% Pareto Cutoff` $\rightarrow$ click **OK**.
+8. **Rename the Tab:** Double-click the tab at the bottom and name it `Sheet 4 - Pareto Imbalance`.
 
 ---
 
-## 5. Dashboard Assembly & Storyboard Architecture
+## 4. Dashboard Assembly & Interactivity (Putting It All Together)
 
-### Layout Specification:
-1. **Size:** Set dashboard size to **Fixed Size** $\rightarrow$ **1920 $\times$ 1080** (or Automatic).
-2. **Top Banner (Header & KPIs):**
-   * Text Object:
-     * **Title:** Clinical Informatics & Triage Decision Dashboard
-     * **Subtitle:** *Course: 23CSE353 — Data Visualization | Topic: MED-04 Symptoms to Disease*
-   * 4 KPI Text Cards (Top Strip):
-     * Card 1: **41** Total Clinical Conditions
-     * Card 2: **131** Active Symptom Features
-     * Card 3: **61.1%** Pathognomonic Anchors (80 Single-Disease Symptoms)
-     * Card 4: **12** Critical Confusion Pairs ($\ge 60\%$ Overlap)
-3. **Main 2 $\times$ 2 Grid Layout:**
-   * **Top-Left:** Worksheet 1 (Symptom Ubiquity & Specificity Spectrum)
-   * **Top-Right:** Worksheet 3 (Diagnostic Ambiguity & High-Risk Disease Pairs)
-   * **Bottom-Left:** Worksheet 2 (Patient Symptom Burden by Domain)
-   * **Bottom-Right:** Worksheet 4 (Feature Imbalance & Pareto 80/20 Curve)
-4. **Interactive Dashboard Actions:**
-   * In Tableau menu: **Dashboard** $\rightarrow$ **Actions...** $\rightarrow$ **Add Action** $\rightarrow$ **Filter**:
-     * *Source Sheet:* Worksheet 2 (Domain Boxplot)
-     * *Target Sheets:* Worksheet 1, Worksheet 3
-     * *Run action on:* **Select**
-     * *Clearing selection will:* **Show all values**
-   * *Result:* Clicking on any Clinical Domain (e.g., *Hepato-Biliary*) automatically filters the dashboard to show only the symptoms and confusion pairs within that specialty!
+### Exact Click-by-Click Steps:
+1. **Create New Dashboard:**
+   * At the bottom of your screen, click the **New Dashboard** icon (the small grid icon with a plus sign next to the new worksheet icon).
+2. **Set Dashboard Size:**
+   * In the left pane under **Size**, click the dropdown (currently *Fixed size*) $\rightarrow$ choose **Generic Desktop (1366 $\times$ 768)** or set to **Automatic**.
+3. **Show Title:**
+   * At the bottom of the left pane, check the box: **Show dashboard title**.
+   * Double-click the title box at the top of your dashboard $\rightarrow$ type:
+     ```text
+     Clinical Informatics & Triage Decision Dashboard
+     Course: 23CSE353 — Data Visualization | Topic: MED-04 Symptoms to Disease
+     ```
+   * Click **OK**.
+4. **Arrange the 4 Sheets in a 2 $\times$ 2 Grid:**
+   * From the left pane under Sheets:
+     * Drag **`Sheet 1 - Chameleon Spectrum`** into the top-left area.
+     * Drag **`Sheet 3 - Ambiguity Pairs`** to the top-right area (next to Sheet 1).
+     * Drag **`Sheet 2 - Symptom Burden`** to the bottom-left area.
+     * Drag **`Sheet 4 - Pareto Imbalance`** to the bottom-right area.
+5. **Add 1-Click Interactivity ("Use as Filter"):**
+   * Click on **`Sheet 2 - Symptom Burden`** on your dashboard so its gray outline appears.
+   * Look at the small toolbar in the top-right corner of Sheet 2's border. Click the small **Funnel icon ("Use as Filter")**.
+   * *Test it:* Click on any bar in Sheet 2 (for example, *Hepatitis D* or *Malaria*) $\rightarrow$ notice how Sheet 1 and Sheet 3 automatically filter to highlight only the symptoms and confusion pairs for that condition!
+   * Click the bar again to unselect.
 
 ---
 
-## 6. Faculty Evaluation Defense Cheat Sheet
+## 5. Defense Cheat Sheet: Answering Faculty Questions
 
 | Evaluator Question | Recommended Student Response |
 | :--- | :--- |
