@@ -1,24 +1,21 @@
 # From Symptoms to Decisions: Deciphering Clinical Complexity, Diagnostic Overlap, and Dataset Imbalance in Medical Records
 
-**Course:** 23CSE353 — Data Visualization  
-**Topic Code:** MED-04 (Medical Records & Clinical Informatics)  
 **Author:** Athirasree A S (`bl.sc.u4cse24205@bl.students.amrita.edu`)  
 **Affiliation:** Dept. of Computer Science and Engineering, Amrita School of Computing, Bengaluru, Amrita Vishwa Vidyapeetham  
-**Submission Deadline:** 15 October 2026  
 
 ---
 
 ## Executive Abstract
-Electronic Health Record (EHR) triage systems face persistent operational challenges balancing intake survey duration against diagnostic discrimination. This case study analyzes a 4,920-record clinical benchmark spanning 131 symptoms and 41 diseases to empower hospital triage directors and health analytics teams to make informed structural decisions. Adhering to the **Action-Target-Purpose (ATP)** framework, we conduct rigorous exploratory data profiling, uncovering critical synthetic anomalies including a zero-variance duplicate header bug (`fluid_overload`), an artificial class balance of exactly 120 cases per disease, and high permutation redundancy. 
+**Electronic Health Record (EHR) triage systems face persistent operational challenges balancing intake survey duration against diagnostic discrimination. This case study analyzes a 4,920-record clinical benchmark spanning 131 symptoms and 41 diseases to empower hospital triage directors and health analytics teams to make informed structural decisions. Adhering to the Action-Target-Purpose (ATP) framework, we conduct rigorous exploratory data profiling, uncovering critical synthetic anomalies including a zero-variance duplicate header bug (`fluid_overload`), an artificial class balance of exactly 120 cases per disease, and high permutation redundancy.**
 
-We formulate five analytical questions formulated prior to graphical design and answer each with perceptually grounded visualizations:
+**Key empirical findings reveal:**
 1. **Symptom Ubiquity vs. Specificity:** An extreme bimodal spectrum where 61.1% of symptoms are pathognomonic anchors while only two symptoms (*fatigue* and *vomiting*) span over 41% of conditions.
 2. **Disease Complexity & Burden:** A four-fold disparity in patient symptom burden ranging from 4 symptoms in acute cardiac/urinary events to 17 symptoms in multi-system viral infections.
 3. **Diagnostic Ambiguity Zones:** Severe diagnostic ambiguity exceeding 80% cosine overlap among viral hepatitis variants and 63–67% between malaria/typhoid and pneumonia/tuberculosis.
 4. **Structural Dataset Imbalance:** An extreme Pareto symptom distribution where the top 20 symptoms generate >50% of all clinical mentions (and 66 symptoms generate 80%), contrasted against an artificial flat disease quota.
 5. **Syndromic Co-occurrence Clusters:** Distinct clinical syndromic blocks (Hepato-Biliary, Febrile-Systemic) that justify modular questionnaire branching.
 
-Based on these findings, we propose a modular two-stage dynamic intake triage architecture and automated laboratory reflex safety rails.
+**Based on these findings, we propose a modular two-stage dynamic intake triage architecture and automated laboratory reflex safety rails.**
 
 ---
 

@@ -18,8 +18,7 @@
     urlcolor=blue!70!black
 }
 
-\title{From Symptoms to Decisions: Deciphering Clinical Complexity, Diagnostic Overlap, and Dataset Imbalance in Medical Records\\
-\large Course: 23CSE353 --- Data Visualization | Problem Code: MED-04}
+\title{From Symptoms to Decisions: Deciphering Clinical Complexity, Diagnostic Overlap, and Dataset Imbalance in Medical Records}
 
 \author{
     \IEEEauthorblockN{Athirasree A S}
@@ -37,6 +36,7 @@
 \maketitle
 
 \begin{abstract}
+\bfseries
 Electronic Health Record (EHR) triage systems face persistent operational challenges balancing intake survey duration against diagnostic discrimination. This case study analyzes a 4,920-record clinical benchmark spanning 131 symptoms and 41 diseases to empower hospital triage directors and health analytics teams to make informed structural decisions. Adhering to the \textit{Action-Target-Purpose} (ATP) framework, we conduct rigorous exploratory data profiling, uncovering critical synthetic anomalies including a zero-variance duplicate header bug (\texttt{fluid\_overload}), an artificial class balance of exactly 120 cases per disease, and high permutation redundancy. We formulate five analytical questions prior to graphical design and answer each with perceptually grounded visualizations. Key empirical findings reveal: (1) an extreme bimodal symptom specificity spectrum where 61.1\% of symptoms are pathognomonic anchors while only two symptoms (\textit{fatigue} and \textit{vomiting}) span over 41\% of conditions; (2) a four-fold disparity in patient symptom burden ranging from 4 symptoms in acute cardiac/urinary events to 17 symptoms in multi-system viral infections; (3) severe diagnostic ambiguity zones exceeding 80\% cosine overlap among viral hepatitis variants and 63--67\% between malaria/typhoid and pneumonia/tuberculosis; and (4) an extreme Pareto symptom distribution where the top 20 symptoms generate >50\% of all clinical mentions, while 66 symptoms account for 80\%. Based on these findings, we propose a modular two-stage dynamic intake triage architecture and automated laboratory reflex safety rails. Complete reproducible workflows for Tableau dashboards and Jupyter notebooks are provided.
 \end{abstract}
 
