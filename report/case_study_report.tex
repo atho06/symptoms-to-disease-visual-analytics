@@ -1,7 +1,7 @@
-\documentclass[10pt,a4paper]{article}
+\documentclass[10pt,a4paper,twocolumn]{article}
 
 \usepackage[utf8]{inputenc}
-\usepackage[margin=1in]{geometry}
+\usepackage[top=0.75in, bottom=0.75in, left=0.7in, right=0.7in, columnsep=0.25in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
@@ -28,20 +28,24 @@
 \lhead{\small From Symptoms to Decisions}
 \cfoot{\thepage}
 
-\title{\vspace{-1.5cm}\LARGE \textbf{From Symptoms to Decisions: Deciphering Clinical Complexity, Diagnostic Overlap, and Dataset Imbalance in Medical Records}\\
-\large \textbf{Course: 23CSE353 --- Data Visualization | Problem Code: MED-04}}
+\title{\vspace{-1.0cm}\LARGE \textbf{From Symptoms to Decisions: Deciphering Clinical Complexity, Diagnostic Overlap, and Dataset Imbalance in Medical Records}\\
+\vspace{0.2cm}\large \textbf{Course: 23CSE353 --- Data Visualization | Problem Code: MED-04}}
 \author{\textbf{Student Individual Case Study} \\ Department of Computer Science \& Engineering}
 \date{October 2026}
 
 \begin{document}
 
-\maketitle
-
-\begin{abstract}
-Electronic Health Record (EHR) triage systems face persistent operational challenges balancing intake survey duration against diagnostic discrimination. This case study analyzes a 4,920-record clinical benchmark spanning 131 symptoms and 41 diseases to empower hospital triage directors and health analytics teams to make informed structural decisions. Adhering to the \textit{Action-Target-Purpose} (ATP) framework, we conduct rigorous exploratory data profiling, uncovering critical synthetic anomalies including a zero-variance duplicate header bug (\texttt{fluid\_overload}), an artificial class balance of exactly 120 cases per disease, and high permutation redundancy. We formulate five analytical questions formulated prior to graphical design and answer each with perceptually grounded visualizations. Key empirical findings reveal: (1) an extreme bimodal symptom specificity spectrum where 61.1\% of symptoms are pathognomonic anchors while only two symptoms (\textit{fatigue} and \textit{vomiting}) span over 41\% of conditions; (2) a four-fold disparity in patient symptom burden ranging from 4 symptoms in acute cardiac/urinary events to 17 symptoms in multi-system viral infections; (3) severe diagnostic ambiguity zones exceeding 80\% cosine overlap among viral hepatitis variants and 63--67\% between malaria/typhoid and pneumonia/tuberculosis; and (4) an extreme Pareto symptom distribution where 28 symptoms generate 50\% of all clinical mentions. Based on these findings, we propose a modular two-stage dynamic intake triage architecture and automated laboratory reflex safety rails. We also provide complete implementation architectures for Tableau interactive dashboards and reproducible Jupyter workflows.
-\end{abstract}
-
-\textbf{Keywords:} Clinical Informatics, Outpatient Triage, Exploratory Data Analysis, Diagnostic Ambiguity, Tableau Visual Analytics, Dataset Imbalance.
+\twocolumn[
+  \begin{@twocolumnfalse}
+    \maketitle
+    \begin{abstract}
+    Electronic Health Record (EHR) triage systems face persistent operational challenges balancing intake survey duration against diagnostic discrimination. This case study analyzes a 4,920-record clinical benchmark spanning 131 symptoms and 41 diseases to empower hospital triage directors and health analytics teams to make informed structural decisions. Adhering to the \textit{Action-Target-Purpose} (ATP) framework, we conduct rigorous exploratory data profiling, uncovering critical synthetic anomalies including a zero-variance duplicate header bug (\texttt{fluid\_overload}), an artificial class balance of exactly 120 cases per disease, and high permutation redundancy. We formulate five analytical questions prior to graphical design and answer each with perceptually grounded visualizations. Key empirical findings reveal: (1) an extreme bimodal symptom specificity spectrum where 61.1\% of symptoms are pathognomonic anchors while only two symptoms (\textit{fatigue} and \textit{vomiting}) span over 41\% of conditions; (2) a four-fold disparity in patient symptom burden ranging from 4 symptoms in acute cardiac/urinary events to 17 symptoms in multi-system viral infections; (3) severe diagnostic ambiguity zones exceeding 80\% cosine overlap among viral hepatitis variants and 63--67\% between malaria/typhoid and pneumonia/tuberculosis; and (4) an extreme Pareto symptom distribution where 28 symptoms generate 50\% of all clinical mentions. Based on these findings, we propose a modular two-stage dynamic intake triage architecture and automated laboratory reflex safety rails. Complete reproducible workflows for Tableau dashboards and Jupyter notebooks are provided.
+    \end{abstract}
+    \vspace{0.2cm}
+    \noindent\textbf{Keywords:} Clinical Informatics, Outpatient Triage, Exploratory Data Analysis, Diagnostic Ambiguity, Tableau Visual Analytics, Dataset Imbalance.
+    \vspace{0.6cm}
+  \end{@twocolumnfalse}
+]
 
 \section{Introduction \& Clinical Problem Statement}
 In contemporary healthcare systems, outpatient triage and emergency room intake represent the critical initial touchpoint between presenting patients and clinical care pathways~\cite{gilboy2011emergency}. With the increasing adoption of digital patient intake portals and clinical decision support systems (CDSS), healthcare providers frequently rely on standardized symptom questionnaires. However, poorly calibrated questionnaires create two operational pathologies:
@@ -50,12 +54,9 @@ In contemporary healthcare systems, outpatient triage and emergency room intake 
     \item \textbf{Diagnostic Ambiguity \& False-Certainty:} Subjective symptom reports frequently fail to distinguish between conditions sharing high clinical overlap, exposing triage systems to misclassification risks when laboratory confirmation is omitted~\cite{cabitza2017unintended}.
 \end{enumerate}
 
-Under problem statement \textbf{MED-04: Symptoms to Disease}, a health analytics team seeks to understand the global topology of medical symptom records: determining which symptoms are universally shared, which diseases possess near-identical symptom profiles, and where the dataset exhibits structural imbalances. Crucially, the objective of this investigation is \textit{not} to construct an automated diagnostic diagnostic algorithm, but rather to communicate patterns, structural risks, and clinical insights clearly to institutional decision-makers.
+Under problem statement \textbf{MED-04: Symptoms to Disease}, a health analytics team seeks to understand the global topology of medical symptom records: determining which symptoms are universally shared, which diseases possess near-identical symptom profiles, and where the dataset exhibits structural imbalances. Crucially, the objective of this investigation is \textit{not} to construct an automated diagnostic algorithm, but rather to communicate patterns, structural risks, and clinical insights clearly to institutional decision-makers.
 
-\section{Strategic Framing: The Action-Target-Purpose (ATP) Framework}
-To ensure the analytical inquiry is driven by strategic decisions rather than cosmetic graphing, Table~\ref{tab:atp} outlines the formal Action-Target-Purpose (ATP) matrix governing this project.
-
-\begin{table}[htbp]
+\begin{table*}[t]
 \centering
 \small
 \caption{The Action-Target-Purpose (ATP) Decision Framework for Problem MED-04.}
@@ -78,7 +79,10 @@ To ensure the analytical inquiry is driven by strategic decisions rather than co
 3. \textbf{Prevents Algorithmic Failure:} Prevents deploying overfitted models trained on synthetic benchmarks that fail in epidemiologically skewed real-world cohorts. \\
 \bottomrule
 \end{tabularx}
-\end{table}
+\end{table*}
+
+\section{Strategic Framing: The Action-Target-Purpose (ATP) Framework}
+To ensure the analytical inquiry is driven by strategic decisions rather than cosmetic graphing, Table~\ref{tab:atp} outlines the formal Action-Target-Purpose (ATP) matrix governing this project.
 
 \section{Exploratory Data Analysis (EDA) \& Forensic Data Profiling}
 Prior to visual encoding, we conducted a rigorous data audit on the 4,920 patient records. This audit uncovered several critical structural anomalies and data engineering artifacts:
@@ -114,7 +118,7 @@ Typographical errors in clinical labels (e.g., \texttt{'Peptic ulcer diseae'}, \
 
 \section{Analytical Formulation: The Five Core Research Questions}
 In compliance with academic visualization methodology, each visual artifact was designed to answer a specific, pre-formulated analytical question:
-\begin{itemize}
+\begin{itemize}[noitemsep]
     \item \textbf{Question 1 (Ubiquity vs. Specificity):} Which symptoms act as non-specific ``chameleons'' spanning multiple disease categories versus ``pathognomonic anchors'' unique to a single condition, and how does this dictate triage questionnaire hierarchy?
     \item \textbf{Question 2 (Disease Complexity \& Symptom Load):} How does patient symptom burden (number of co-manifesting symptoms) vary across clinical conditions, and which disease categories represent high-complexity multi-system syndromes?
     \item \textbf{Question 3 (Diagnostic Ambiguity \& Similarity):} Which disease pairs share severe symptom profile similarity, creating critical operational risks for triage misdirection and diagnostic confusion?
@@ -127,12 +131,12 @@ Below, we present the visual evidence answering each analytical question, accomp
 
 % ------------------------------------------------------------------------------
 \subsection{Question 1: Symptom Ubiquity vs. Specificity Spectrum}
-\begin{figure}[htbp]
+\begin{figure*}[t]
     \centering
-    \includegraphics[width=0.95\textwidth]{figures/fig1_symptom_ubiquity_specificity.png}
+    \includegraphics[width=0.92\textwidth]{figures/fig1_symptom_ubiquity_specificity.png}
     \caption{\textbf{Symptom Ubiquity vs. Specificity Spectrum.} Panel A ranks the top 15 most ubiquitous symptoms by disease span and cohort prevalence. Panel B illustrates the four-tier specificity breakdown across all 131 symptoms.}
     \label{fig:q1}
-\end{figure}
+\end{figure*}
 
 \subsubsection{Design Choices (``Explain Your Choices'')}
 \begin{itemize}[noitemsep]
@@ -147,12 +151,12 @@ Triage forms should not present all symptoms uniformly. Stage-1 triage should qu
 
 % ------------------------------------------------------------------------------
 \subsection{Question 2: Disease Complexity \& Patient Symptom Burden}
-\begin{figure}[htbp]
+\begin{figure*}[t]
     \centering
-    \includegraphics[width=0.92\textwidth]{figures/fig2_disease_complexity_burden.png}
+    \includegraphics[width=0.90\textwidth]{figures/fig2_disease_complexity_burden.png}
     \caption{\textbf{Patient Symptom Burden Distribution Across 41 Medical Conditions.} Boxplots show median and interquartile range of co-manifesting symptoms, color-coded by Clinical Specialty Domain.}
     \label{fig:q2}
-\end{figure}
+\end{figure*}
 
 \subsubsection{Design Choices (``Explain Your Choices'')}
 \begin{itemize}[noitemsep]
@@ -167,12 +171,12 @@ Outpatient clinics must dynamically allocate consultation time slots: high-burde
 
 % ------------------------------------------------------------------------------
 \subsection{Question 3: Disease Pairwise Similarity \& Diagnostic Ambiguity}
-\begin{figure}[htbp]
+\begin{figure*}[t]
     \centering
-    \includegraphics[width=0.98\textwidth]{figures/fig3_disease_similarity_confusion.png}
+    \includegraphics[width=0.92\textwidth]{figures/fig3_disease_similarity_confusion.png}
     \caption{\textbf{Disease Pairwise Similarity \& Triage Confusion Zones.} Panel A displays the $41 \times 41$ hierarchically clustered cosine similarity matrix. Panel B highlights the top 12 highest-risk ambiguous disease pairs ($\ge 0.60$ overlap).}
     \label{fig:q3}
-\end{figure}
+\end{figure*}
 
 \subsubsection{Design Choices (``Explain Your Choices'')}
 \begin{itemize}[noitemsep]
@@ -195,12 +199,12 @@ Symptom-based triage must never attempt to distinguish between conditions within
 
 % ------------------------------------------------------------------------------
 \subsection{Question 4: Structural Imbalance \& Synthetic Artifacts}
-\begin{figure}[htbp]
+\begin{figure*}[t]
     \centering
-    \includegraphics[width=0.95\textwidth]{figures/fig4_dataset_imbalance_pareto.png}
+    \includegraphics[width=0.90\textwidth]{figures/fig4_dataset_imbalance_pareto.png}
     \caption{\textbf{Structural Imbalance \& Pareto Feature Inequity.} Panel A highlights the synthetic uniform disease balance (120 records each). Panel B illustrates the severe long-tail Pareto distribution of symptom occurrences and the zero-variance artifact.}
     \label{fig:q4}
-\end{figure}
+\end{figure*}
 
 \subsubsection{Design Choices (``Explain Your Choices'')}
 \begin{itemize}[noitemsep]
@@ -222,7 +226,7 @@ Hospital data teams must reject naive machine learning accuracy claims on this b
 \subsection{Question 5: Symptom Co-occurrence \& Syndromic Clusters}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.82\textwidth]{figures/fig5_symptom_cooccurrence_clusters.png}
+    \includegraphics[width=\columnwidth]{figures/fig5_symptom_cooccurrence_clusters.png}
     \caption{\textbf{Symptom Co-occurrence Matrix (Top 22 Symptoms).} Pearson correlation matrix with masked upper triangle, isolating clinical syndromic archetypes.}
     \label{fig:q5}
 \end{figure}
@@ -246,7 +250,7 @@ Electronic triage forms should be structured into modular syndrome blocks. Check
 \section{Operational Decision-Making Recommendations}
 Synthesizing the analytical findings into the ATP mandate, we deliver three executive recommendations for the Health Analytics Director:
 
-\begin{enumerate}
+\begin{enumerate}[leftmargin=*]
     \item \textbf{Implement a Two-Stage Branching Triage Architecture:}
     Retire the static 131-item intake questionnaire. Stage 1 should screen the 10 systemic chameleon symptoms identified in Question 1. If positive, the system branches dynamically to candidate disease modules, querying pathognomonic anchors to achieve confirmation within 3--5 queries.
     
@@ -270,7 +274,7 @@ To enable interactive exploration by clinical directors, the visual analysis was
     \item \texttt{Disease\_Summary.csv}: Disease burden and clinical domain mappings.
     \item \texttt{Disease\_Pairwise\_Similarity.csv}: 820 precomputed similarity comparisons.
 \end{itemize}
-The Tableau storyboard links the four core sheets with bidirectional action filters: selecting a clinical specialty domain dynamically isolates corresponding symptom burdens, ambiguity pairs, and specificity distributions. Complete step-by-step assembly instructions and calculated field formulas are detailed in \texttt{tableau/tableau\_dashboard\_guide.md}.
+The Tableau storyboard links the four core sheets with clean visual hierarchy. Complete step-by-step assembly instructions and calculated field formulas are detailed in \texttt{tableau/tableau\_dashboard\_guide.md}.
 
 \section{Conclusion \& Academic Integrity}
 This investigation demonstrates that exploratory data visualization is a powerful investigative tool for healthcare operations when structured around a clear decision-making framework. By transforming raw medical symptom records into an actionable visual roadmap, we identified the fundamental boundaries of symptom-based screening, uncovered synthetic data limitations, and provided practical recommendations to enhance clinical triage efficiency and patient safety.
