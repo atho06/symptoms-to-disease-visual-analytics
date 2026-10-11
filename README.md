@@ -4,7 +4,8 @@
 
 **Submission Deadline:** 15 October 2026  
 **Type:** Individual Project  
-**Author:** Student Case Study Submission  
+**Author:** Athirasree A S (`BL.SC.U4CSE24205` / `bl.sc.u4cse24205@bl.students.amrita.edu`)  
+**Institution:** Dept. of Computer Science and Engineering, Amrita School of Computing, Bengaluru  
 
 ---
 
