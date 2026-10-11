@@ -435,8 +435,8 @@ Instead of administering all 131 questions linearly, EHR systems can group quest
 * **Why this colour?** The diverging `icefire` palette centers at zero correlation, muting uncoupled pairs while highlighting strong clinical synergies in warm amber and deep red.
 * **Why this aggregation?** Pearson correlation coefficient computed over all 4,920 patient encounters.
 * **What should the reader notice?**
-  1. **Hepato-Biliary Syndrome:** Yellowish skin, yellowing of eyes, dark urine, and abdominal pain exhibit powerful correlations ($r = 0.65$ to $0.77$).
-  2. **Systemic Febrile Syndrome:** High fever, chills, headache, and malaise co-occur consistently ($r = 0.40$ to $0.60$)."""))
+  1. **Hepato-Biliary Syndrome:** Yellowish skin, yellowing of eyes, dark urine, and abdominal pain exhibit powerful correlations ($r = 0.53$ to $0.73$).
+  2. **Systemic Febrile Syndrome:** High fever, chills, headache, and malaise co-occur consistently ($r = 0.24$ to $0.54$)."""))
 
 cells.append(nbf.v4.new_code_cell("""# Visualizing Question 5
 top_symps = df_symptom_metrics.head(22)['symptom'].tolist()

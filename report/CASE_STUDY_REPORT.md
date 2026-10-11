@@ -11,7 +11,7 @@
 **Key empirical findings reveal:**
 1. **Symptom Ubiquity vs. Specificity:** An extreme bimodal spectrum where 61.1% of symptoms are pathognomonic anchors while only two symptoms (*fatigue* and *vomiting*) span over 41% of conditions.
 2. **Disease Complexity & Burden:** A four-fold disparity in patient symptom burden ranging from 4 symptoms in acute cardiac/urinary events to 17 symptoms in multi-system viral infections.
-3. **Diagnostic Ambiguity Zones:** Severe diagnostic ambiguity exceeding 80% cosine overlap among viral hepatitis variants and 63–67% between malaria/typhoid and pneumonia/tuberculosis.
+3. **Diagnostic Ambiguity Zones:** Severe diagnostic ambiguity reaching up to 83.0% cosine overlap between viral hepatitis variants (Hepatitis D ↔ E, with Hepatitis A ↔ D at 79.8%) and 63–67% between malaria/typhoid and pneumonia/tuberculosis.
 4. **Structural Dataset Imbalance:** An extreme Pareto symptom distribution where the top 20 symptoms generate >50% of all clinical mentions (and 66 symptoms generate 80%), contrasted against an artificial flat disease quota.
 5. **Syndromic Co-occurrence Clusters:** Distinct clinical syndromic blocks (Hepato-Biliary, Febrile-Systemic) that justify modular questionnaire branching.
 
@@ -46,7 +46,7 @@ Prior to visualization, we audited the 4,920 patient records from the Kaggle ben
   * `fluid_overload.1`: 114 active occurrences, strictly localized to *Alcoholic Hepatitis*.  
   * *Correction:* Dropped the dead column and renamed `fluid_overload.1` back to `fluid_overload`.
 * **Synthetic Uniform Class Distribution:** Every single disease has **exactly 120 records** ($41 \times 120 = 4,920$). Real-world incidence of common colds vs. hepatitis differs by orders of magnitude.
-* **Permutation Redundancy:** Within each 120-patient disease group, there are only 5 to 10 unique symptom patterns repeated 12 to 24 times each.
+* **Permutation Redundancy:** Within each 120-patient disease group, there are only 5 to 10 unique symptom patterns repeated between 6 and 90 times across the 120 records.
 
 ### 3.2 Clinical Domain Grouping
 Diseases were grouped into 6 clinical hospital departments:
@@ -95,8 +95,8 @@ Diseases were grouped into 6 clinical hospital departments:
 ![Figure 3: Disease Pairwise Similarity & Ambiguity](figures/fig3_disease_similarity_confusion.png)
 
 * **Design Choices ("Explain Your Choices"):**
-  * *Why this graph?* Hierarchically clustered heatmap visualizes global clinical overlap topology across all 820 pairs, while the ranked horizontal bar chart isolates the top 12 critical ambiguity zones exceeding the $\ge 0.60$ safety threshold.
-  * *Why this colour?* The perceptually uniform `YlOrRd` gradient ensures low-similarity pairs fade into light neutral cream, while dangerous overlaps ignite in dark red. Crimson denotes intra-domain confusion and purple denotes cross-domain overlap.
+  * *Why this graph?* Hierarchically clustered heatmap visualizes global clinical overlap topology across all 820 pairs, while the ranked horizontal bar chart isolates the top 12 clinically ambiguous disease pairs (10 of which exceed the $\ge 0.60$ safety threshold, with the remaining two at 0.58–0.59).
+  * *Why this colour?* The perceptually uniform `YlOrRd` gradient ensures low-similarity pairs fade into light neutral cream, while dangerous overlaps ignite in dark red. Crimson denotes Hepato-Biliary confusion and steel blue denotes Infectious Disease confusion.
   * *Why this aggregation?* Pairwise Cosine Similarity computed between 131-dimensional binary symptom vectors.
   * *What should the reader notice?* Three critical ambiguity clusters emerge:
     1. **Viral Hepatitis Cluster:** Hepatitis D and E share **83.0%** overlap; Hepatitis D and A share **79.8%** overlap; Chronic Cholestasis and Hepatitis D share **75.6%** overlap.
@@ -133,8 +133,8 @@ Diseases were grouped into 6 clinical hospital departments:
   * *Why this colour?* The diverging `icefire` palette centers at zero correlation, muting uncoupled features in neutral tones while highlighting strong synergies in amber and red.
   * *Why this aggregation?* Pearson correlation coefficients ($r$) computed across all 4,920 patient encounters.
   * *What should the reader notice?* Clinically coherent syndromic blocks emerge spontaneously:
-    1. **Hepato-Biliary Syndrome:** Yellowish skin, yellowing of eyes, abdominal pain, and dark urine co-occur with high correlation ($r = 0.65 \text{ to } 0.77$).
-    2. **Systemic Febrile Syndrome:** High fever, chills, headache, and malaise form a tightly bound febrile cluster ($r = 0.40 \text{ to } 0.60$).
+    1. **Hepato-Biliary Syndrome:** Yellowish skin, yellowing of eyes, abdominal pain, and dark urine co-occur with high correlation ($r = 0.53 \text{ to } 0.73$).
+    2. **Systemic Febrile Syndrome:** High fever, chills, headache, and malaise form a tightly bound febrile cluster ($r = 0.24 \text{ to } 0.54$).
 * **Operational Action:** Group electronic intake questions into modular syndromic blocks. Checking a single lead symptom (e.g., jaundice) should trigger an immediate child prompt querying the remainder of the Hepato-Biliary cluster, eliminating the need to review unrelated physical systems.
 
 ---

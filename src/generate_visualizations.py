@@ -334,10 +334,10 @@ sns.heatmap(
 ax.set_title('Co-occurrence Matrix of Top 22 Clinical Symptoms: Identifying Syndrome Archetypes', pad=15)
 
 # Annotate syndrome blocks
-ax.text(12, 5, 'Hepato-Biliary Syndrome:\nYellowish Skin + Yellow Eyes +\nAbdominal Pain + Dark Urine\n(r = 0.65 to 0.77)',
+ax.text(12, 5, 'Hepato-Biliary Syndrome:\nYellowish Skin + Yellow Eyes +\nAbdominal Pain + Dark Urine\n(r = 0.53 to 0.73)',
         bbox=dict(boxstyle='round,pad=0.5', facecolor='#fef9e7', edgecolor='#f39c12'), fontsize=9, fontweight='bold')
 
-ax.text(15, 15, 'Systemic Febrile Syndrome:\nHigh Fever + Chills +\nHeadache + Malaise\n(r = 0.40 to 0.60)',
+ax.text(15, 15, 'Systemic Febrile Syndrome:\nHigh Fever + Chills +\nHeadache + Malaise\n(r = 0.24 to 0.54)',
         bbox=dict(boxstyle='round,pad=0.5', facecolor='#fadbd8', edgecolor='#c0392b'), fontsize=9, fontweight='bold')
 
 plt.tight_layout()

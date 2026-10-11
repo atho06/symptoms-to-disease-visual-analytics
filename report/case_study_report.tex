@@ -47,7 +47,7 @@
 
 \begin{abstract}
 \bfseries
-Electronic Health Record (EHR) triage systems face persistent operational challenges balancing intake survey duration against diagnostic discrimination. This case study analyzes a 4,920-record clinical benchmark spanning 131 symptoms and 41 diseases to empower hospital triage directors and health analytics teams to make informed structural decisions. Adhering to the \textit{Action-Target-Purpose} (ATP) framework, we conduct rigorous exploratory data profiling, uncovering critical synthetic anomalies including a zero-variance duplicate header bug (\texttt{fluid\_overload}), an artificial class balance of exactly 120 cases per disease, and high permutation redundancy. We formulate five analytical questions prior to graphical design and answer each with perceptually grounded visualizations. Key empirical findings reveal: (1) an extreme bimodal symptom specificity spectrum where 61.1\% of symptoms are pathognomonic anchors while only two symptoms (\textit{fatigue} and \textit{vomiting}) span over 41\% of conditions; (2) a four-fold disparity in patient symptom burden ranging from 4 symptoms in acute cardiac/urinary events to 17 symptoms in multi-system viral infections; (3) severe diagnostic ambiguity zones exceeding 80\% cosine overlap among viral hepatitis variants and 63--67\% between malaria/typhoid and pneumonia/tuberculosis; and (4) an extreme Pareto symptom distribution where the top 20 symptoms generate >50\% of all clinical mentions, while 66 symptoms account for 80\%. Based on these findings, we propose a modular two-stage dynamic intake triage architecture and automated laboratory reflex safety rails. Complete reproducible workflows for Tableau dashboards and Jupyter notebooks are provided.
+Electronic Health Record (EHR) triage systems face persistent operational challenges balancing intake survey duration against diagnostic discrimination. This case study analyzes a 4,920-record clinical benchmark spanning 131 symptoms and 41 diseases to empower hospital triage directors and health analytics teams to make informed structural decisions. Adhering to the \textit{Action-Target-Purpose} (ATP) framework, we conduct rigorous exploratory data profiling, uncovering critical synthetic anomalies including a zero-variance duplicate header bug (\texttt{fluid\_overload}), an artificial class balance of exactly 120 cases per disease, and high permutation redundancy. We formulate five analytical questions prior to graphical design and answer each with perceptually grounded visualizations. Key empirical findings reveal: (1) an extreme bimodal symptom specificity spectrum where 61.1\% of symptoms are pathognomonic anchors while only two symptoms (\textit{fatigue} and \textit{vomiting}) span over 41\% of conditions; (2) a four-fold disparity in patient symptom burden ranging from 4 symptoms in acute cardiac/urinary events to 17 symptoms in multi-system viral infections; (3) severe diagnostic ambiguity zones reaching up to 83.0\% cosine overlap between viral hepatitis variants (Hepatitis D $\leftrightarrow$ E, with Hepatitis A $\leftrightarrow$ D at 79.8\%) and 63--67\% between malaria/typhoid and pneumonia/tuberculosis; and (4) an extreme Pareto symptom distribution where the top 20 symptoms generate >50\% of all clinical mentions, while 66 symptoms account for 80\%. Based on these findings, we propose a modular two-stage dynamic intake triage architecture and automated laboratory reflex safety rails. Complete reproducible workflows for Tableau dashboards and Jupyter notebooks are provided.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -110,7 +110,7 @@ This represents a duplicate header collision in the benchmark source. In our pre
 
 \subsection{Class Balance vs. Permutation Redundancy}
 The target variable \texttt{prognosis} contains exactly 41 distinct disease conditions. Remarkably, every single disease contains \textit{exactly 120 records} ($41 \times 120 = 4,920$). This uniform class distribution is an artifact of synthetic data balancing. 
-Furthermore, an audit of symptom vectors within each disease group revealed high permutation redundancy: each disease contains only between 5 and 10 unique clinical symptom patterns, repeated 12 to 24 times each across the 120 records.
+Furthermore, an audit of symptom vectors within each disease group revealed high permutation redundancy: each disease contains only between 5 and 10 unique clinical symptom patterns, repeated between 6 and 90 times across the 120 records.
 
 \subsection{Clinical Domain Standardization}
 Typographical errors in clinical labels (e.g., \texttt{'Peptic ulcer diseae'}, \texttt{'Diabetes '}, \texttt{'Osteoarthristis'}) were programmatically resolved. To provide meaningful high-level operational groupings for hospital triage managers, each condition was categorized into one of six core \textbf{Clinical Specialty Domains}:
@@ -174,20 +174,20 @@ Triage forms should not present all symptoms uniformly. Stage-1 triage should qu
 \end{itemize}
 
 \subsubsection{Clinical Takeaway \& Action}
-Outpatient clinics must dynamically allocate consultation time slots: high-burden viral/respiratory patients require extended 25-minute slots for multi-system evaluation, whereas low-burden acute presentations require rapid, focused reflex diagnostic pathways.
+Outpatient clinics must dynamically allocate consultation time slots: high-burden viral/respiratory patients require extended consultation slots for multi-system evaluation, whereas low-burden acute presentations require rapid, focused reflex diagnostic pathways.
 
 % ------------------------------------------------------------------------------
 \subsection{Question 3: Disease Pairwise Similarity \& Diagnostic Ambiguity}
 \begin{figure*}[t]
     \centering
     \includegraphics[width=0.82\textwidth]{figures/fig3_disease_similarity_confusion.png}
-    \caption{\textbf{Disease Pairwise Similarity \& Triage Confusion Zones.} Panel A displays the $41 \times 41$ hierarchically clustered cosine similarity matrix. Panel B highlights the top 12 highest-risk ambiguous disease pairs ($\ge 0.60$ overlap).}
+    \caption{\textbf{Disease Pairwise Similarity \& Triage Confusion Zones.} Panel A displays the $41 \times 41$ hierarchically clustered cosine similarity matrix. Panel B highlights the top 12 clinically ambiguous disease pairs (10 of which exceed the $\ge 0.60$ high-risk threshold, with the remaining two at 0.58--0.59).}
     \label{fig:q3}
 \end{figure*}
 
 \subsubsection{Design Choices (``Explain Your Choices'')}
 \begin{itemize}[noitemsep]
-    \item \textbf{Why this graph?} A hierarchically clustered heatmap illustrates global clinical overlap topology across all 820 pairs, while the ranked horizontal bar chart isolates the top 12 critical ambiguity zones exceeding the $\ge 0.60$ safety threshold.
+    \item \textbf{Why this graph?} A hierarchically clustered heatmap illustrates global clinical overlap topology across all 820 pairs, while the ranked horizontal bar chart isolates the top 12 critical ambiguity zones (10 exceeding the $\ge 0.60$ safety threshold, with two approaching it at 0.58--0.59).
     \item \textbf{Why this colour?} The perceptually uniform \texttt{YlOrRd} gradient ensures low-similarity pairs fade into light neutral cream, while dangerous overlaps ignite in dark red. In Panel B, crimson denotes Hepato-Biliary specialty confusion (viral hepatitis variants, chronic cholestasis, jaundice) and steel blue denotes Infectious Disease confusion (pneumonia $\leftrightarrow$ tuberculosis, malaria $\leftrightarrow$ typhoid).
     \item \textbf{Why this aggregation?} Pairwise Cosine Similarity computed between 131-dimensional binary symptom vectors:
     \begin{equation}
@@ -220,7 +220,7 @@ Symptom-based triage must never attempt to distinguish between conditions within
     \item \textbf{Why this aggregation?} Cumulative sum percentage of symptom occurrences against descending rank order.
     \item \textbf{What should the reader notice?} The dataset exhibits a profound dual imbalance:
     \begin{enumerate}[noitemsep]
-        \item \textit{Artificial Class Uniformity:} Exactly 120 cases per disease, which violently diverges from clinical reality where common colds outnumber hepatitis by $10,000:1$.
+        \item \textit{Artificial Class Uniformity:} Exactly 120 cases per disease, which violently diverges from clinical epidemiological reality where common upper-respiratory viral infections vastly outnumber severe chronic conditions.
         \item \textit{Pareto Long-Tail:} Just 20 symptoms (15.3\% of features) generate 50.7\% of all symptom occurrences, and 66 symptoms account for 80.0\%. The remaining 65 symptoms represent an extensive sparse tail.
         \item \textit{Raw Pipeline Artifact Reconciled:} In the raw benchmark, \texttt{fluid\_overload} possessed 0 occurrences due to an unpopulated duplicate header bug colliding with \texttt{fluid\_overload.1} (114 cases). Our pipeline reconciled this artifact, restoring 114 cases to Alcoholic Hepatitis.
     \end{enumerate}
@@ -245,8 +245,8 @@ Hospital data teams must reject naive machine learning accuracy claims on this b
     \item \textbf{Why this aggregation?} Pearson correlation coefficients ($r$) computed across all 4,920 patient encounters.
     \item \textbf{What should the reader notice?} Clinically coherent syndromic blocks emerge spontaneously:
     \begin{enumerate}[noitemsep]
-        \item \textit{Hepato-Biliary Syndrome:} Yellowish skin, yellowing of eyes, abdominal pain, and dark urine co-occur with high correlation ($r = 0.65 \text{ to } 0.77$).
-        \item \textit{Systemic Febrile Syndrome:} High fever, chills, headache, and malaise form a tightly bound febrile cluster ($r = 0.40 \text{ to } 0.60$).
+        \item \textit{Hepato-Biliary Syndrome:} Yellowish skin, yellowing of eyes, abdominal pain, and dark urine co-occur with high correlation ($r = 0.53 \text{ to } 0.73$).
+        \item \textit{Systemic Febrile Syndrome:} High fever, chills, headache, and malaise form a tightly bound febrile cluster ($r = 0.24 \text{ to } 0.54$).
     \end{enumerate}
 \end{itemize}
 
@@ -260,7 +260,7 @@ Synthesizing the analytical findings into the ATP mandate, we deliver three exec
 
 \begin{enumerate}[leftmargin=*]
     \item \textbf{Implement a Two-Stage Branching Triage Architecture:}
-    Retire the static 131-item intake questionnaire. Stage 1 should screen the 10 systemic chameleon symptoms identified in Question 1. If positive, the system branches dynamically to candidate disease modules, querying pathognomonic anchors to achieve confirmation within 3--5 queries.
+    Retire the static 131-item intake questionnaire. Stage 1 should screen the 10 systemic chameleon symptoms identified in Question 1. If positive, the system branches dynamically to candidate disease modules, querying pathognomonic anchors to achieve confirmation in minimal targeted queries.
     
     \item \textbf{Deploy Automated Laboratory Reflex Safety Rails:}
     For any patient whose presenting symptoms match the high-overlap zones identified in Question 3 ($\text{similarity} \ge 0.60$), the EHR must enforce mandatory diagnostic lab reflex orders:
