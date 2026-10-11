@@ -1,16 +1,13 @@
-\documentclass[10pt,a4paper,twocolumn]{article}
+\documentclass[conference]{IEEEtran}
 
 \usepackage[utf8]{inputenc}
-\usepackage[top=0.75in, bottom=0.75in, left=0.7in, right=0.7in, columnsep=0.25in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{xcolor}
 \usepackage{hyperref}
-\usepackage{caption}
 \usepackage{enumitem}
-\usepackage{fancyhdr}
 \graphicspath{{figures/}{report/figures/}{./}}
 
 % Hyperlink configuration
@@ -21,31 +18,31 @@
     urlcolor=blue!70!black
 }
 
-% Page styling
-\pagestyle{fancy}
-\fancyhf{}
-\rhead{\small 23CSE353 Data Visualization Case Study --- MED-04}
-\lhead{\small From Symptoms to Decisions}
-\cfoot{\thepage}
+\title{From Symptoms to Decisions: Deciphering Clinical Complexity, Diagnostic Overlap, and Dataset Imbalance in Medical Records\\
+\large Course: 23CSE353 --- Data Visualization | Problem Code: MED-04}
 
-\title{\vspace{-1.0cm}\LARGE \textbf{From Symptoms to Decisions: Deciphering Clinical Complexity, Diagnostic Overlap, and Dataset Imbalance in Medical Records}\\
-\vspace{0.2cm}\large \textbf{Course: 23CSE353 --- Data Visualization | Problem Code: MED-04}}
-\author{\textbf{Student Individual Case Study} \\ Department of Computer Science \& Engineering}
-\date{October 2026}
+\author{
+    \IEEEauthorblockN{Athirasree A S}
+    \IEEEauthorblockA{
+        \vspace{0.1cm}
+        Dept. of Computer Science and Engineering\\
+        Amrita School of Computing, Bengaluru\\
+        Amrita Vishwa Vidyapeetham, India\\
+        Email: bl.sc.u4cse24205@bl.students.amrita.edu
+    }
+}
 
 \begin{document}
 
-\twocolumn[
-  \begin{@twocolumnfalse}
-    \maketitle
-    \begin{abstract}
-    Electronic Health Record (EHR) triage systems face persistent operational challenges balancing intake survey duration against diagnostic discrimination. This case study analyzes a 4,920-record clinical benchmark spanning 131 symptoms and 41 diseases to empower hospital triage directors and health analytics teams to make informed structural decisions. Adhering to the \textit{Action-Target-Purpose} (ATP) framework, we conduct rigorous exploratory data profiling, uncovering critical synthetic anomalies including a zero-variance duplicate header bug (\texttt{fluid\_overload}), an artificial class balance of exactly 120 cases per disease, and high permutation redundancy. We formulate five analytical questions prior to graphical design and answer each with perceptually grounded visualizations. Key empirical findings reveal: (1) an extreme bimodal symptom specificity spectrum where 61.1\% of symptoms are pathognomonic anchors while only two symptoms (\textit{fatigue} and \textit{vomiting}) span over 41\% of conditions; (2) a four-fold disparity in patient symptom burden ranging from 4 symptoms in acute cardiac/urinary events to 17 symptoms in multi-system viral infections; (3) severe diagnostic ambiguity zones exceeding 80\% cosine overlap among viral hepatitis variants and 63--67\% between malaria/typhoid and pneumonia/tuberculosis; and (4) an extreme Pareto symptom distribution where the top 20 symptoms generate >50\% of all clinical mentions, while 66 symptoms account for 80\%. Based on these findings, we propose a modular two-stage dynamic intake triage architecture and automated laboratory reflex safety rails. Complete reproducible workflows for Tableau dashboards and Jupyter notebooks are provided.
-    \end{abstract}
-    \vspace{0.2cm}
-    \noindent\textbf{Keywords:} Clinical Informatics, Outpatient Triage, Exploratory Data Analysis, Diagnostic Ambiguity, Tableau Visual Analytics, Dataset Imbalance.
-    \vspace{0.6cm}
-  \end{@twocolumnfalse}
-]
+\maketitle
+
+\begin{abstract}
+Electronic Health Record (EHR) triage systems face persistent operational challenges balancing intake survey duration against diagnostic discrimination. This case study analyzes a 4,920-record clinical benchmark spanning 131 symptoms and 41 diseases to empower hospital triage directors and health analytics teams to make informed structural decisions. Adhering to the \textit{Action-Target-Purpose} (ATP) framework, we conduct rigorous exploratory data profiling, uncovering critical synthetic anomalies including a zero-variance duplicate header bug (\texttt{fluid\_overload}), an artificial class balance of exactly 120 cases per disease, and high permutation redundancy. We formulate five analytical questions prior to graphical design and answer each with perceptually grounded visualizations. Key empirical findings reveal: (1) an extreme bimodal symptom specificity spectrum where 61.1\% of symptoms are pathognomonic anchors while only two symptoms (\textit{fatigue} and \textit{vomiting}) span over 41\% of conditions; (2) a four-fold disparity in patient symptom burden ranging from 4 symptoms in acute cardiac/urinary events to 17 symptoms in multi-system viral infections; (3) severe diagnostic ambiguity zones exceeding 80\% cosine overlap among viral hepatitis variants and 63--67\% between malaria/typhoid and pneumonia/tuberculosis; and (4) an extreme Pareto symptom distribution where the top 20 symptoms generate >50\% of all clinical mentions, while 66 symptoms account for 80\%. Based on these findings, we propose a modular two-stage dynamic intake triage architecture and automated laboratory reflex safety rails. Complete reproducible workflows for Tableau dashboards and Jupyter notebooks are provided.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Clinical Informatics, Outpatient Triage, Exploratory Data Analysis, Diagnostic Ambiguity, Tableau Visual Analytics, Dataset Imbalance.
+\end{IEEEkeywords}
 
 \section{Introduction \& Clinical Problem Statement}
 In contemporary healthcare systems, outpatient triage and emergency room intake represent the critical initial touchpoint between presenting patients and clinical care pathways~\cite{gilboy2011emergency}. With the increasing adoption of digital patient intake portals and clinical decision support systems (CDSS), healthcare providers frequently rely on standardized symptom questionnaires. However, poorly calibrated questionnaires create two operational pathologies:
@@ -224,12 +221,12 @@ Hospital data teams must reject naive machine learning accuracy claims on this b
 
 % ------------------------------------------------------------------------------
 \subsection{Question 5: Symptom Co-occurrence \& Syndromic Clusters}
-\begin{figure}[htbp]
+\begin{figure*}[t]
     \centering
-    \includegraphics[width=\columnwidth]{figures/fig5_symptom_cooccurrence_clusters.png}
+    \includegraphics[width=0.82\textwidth]{figures/fig5_symptom_cooccurrence_clusters.png}
     \caption{\textbf{Symptom Co-occurrence Matrix (Top 22 Symptoms).} Pearson correlation matrix with masked upper triangle, isolating clinical syndromic archetypes.}
     \label{fig:q5}
-\end{figure}
+\end{figure*}
 
 \subsubsection{Design Choices (``Explain Your Choices'')}
 \begin{itemize}[noitemsep]

@@ -2,7 +2,8 @@
 
 **Course:** 23CSE353 — Data Visualization  
 **Topic Code:** MED-04 (Medical Records & Clinical Informatics)  
-**Deliverable:** Comprehensive Academic Case Study Report  
+**Author:** Athirasree A S (`bl.sc.u4cse24205@bl.students.amrita.edu`)  
+**Affiliation:** Dept. of Computer Science and Engineering, Amrita School of Computing, Bengaluru, Amrita Vishwa Vidyapeetham  
 **Submission Deadline:** 15 October 2026  
 
 ---
