@@ -39,7 +39,7 @@
   \begin{@twocolumnfalse}
     \maketitle
     \begin{abstract}
-    Electronic Health Record (EHR) triage systems face persistent operational challenges balancing intake survey duration against diagnostic discrimination. This case study analyzes a 4,920-record clinical benchmark spanning 131 symptoms and 41 diseases to empower hospital triage directors and health analytics teams to make informed structural decisions. Adhering to the \textit{Action-Target-Purpose} (ATP) framework, we conduct rigorous exploratory data profiling, uncovering critical synthetic anomalies including a zero-variance duplicate header bug (\texttt{fluid\_overload}), an artificial class balance of exactly 120 cases per disease, and high permutation redundancy. We formulate five analytical questions prior to graphical design and answer each with perceptually grounded visualizations. Key empirical findings reveal: (1) an extreme bimodal symptom specificity spectrum where 61.1\% of symptoms are pathognomonic anchors while only two symptoms (\textit{fatigue} and \textit{vomiting}) span over 41\% of conditions; (2) a four-fold disparity in patient symptom burden ranging from 4 symptoms in acute cardiac/urinary events to 17 symptoms in multi-system viral infections; (3) severe diagnostic ambiguity zones exceeding 80\% cosine overlap among viral hepatitis variants and 63--67\% between malaria/typhoid and pneumonia/tuberculosis; and (4) an extreme Pareto symptom distribution where 28 symptoms generate 50\% of all clinical mentions. Based on these findings, we propose a modular two-stage dynamic intake triage architecture and automated laboratory reflex safety rails. Complete reproducible workflows for Tableau dashboards and Jupyter notebooks are provided.
+    Electronic Health Record (EHR) triage systems face persistent operational challenges balancing intake survey duration against diagnostic discrimination. This case study analyzes a 4,920-record clinical benchmark spanning 131 symptoms and 41 diseases to empower hospital triage directors and health analytics teams to make informed structural decisions. Adhering to the \textit{Action-Target-Purpose} (ATP) framework, we conduct rigorous exploratory data profiling, uncovering critical synthetic anomalies including a zero-variance duplicate header bug (\texttt{fluid\_overload}), an artificial class balance of exactly 120 cases per disease, and high permutation redundancy. We formulate five analytical questions prior to graphical design and answer each with perceptually grounded visualizations. Key empirical findings reveal: (1) an extreme bimodal symptom specificity spectrum where 61.1\% of symptoms are pathognomonic anchors while only two symptoms (\textit{fatigue} and \textit{vomiting}) span over 41\% of conditions; (2) a four-fold disparity in patient symptom burden ranging from 4 symptoms in acute cardiac/urinary events to 17 symptoms in multi-system viral infections; (3) severe diagnostic ambiguity zones exceeding 80\% cosine overlap among viral hepatitis variants and 63--67\% between malaria/typhoid and pneumonia/tuberculosis; and (4) an extreme Pareto symptom distribution where the top 20 symptoms generate >50\% of all clinical mentions, while 66 symptoms account for 80\%. Based on these findings, we propose a modular two-stage dynamic intake triage architecture and automated laboratory reflex safety rails. Complete reproducible workflows for Tableau dashboards and Jupyter notebooks are provided.
     \end{abstract}
     \vspace{0.2cm}
     \noindent\textbf{Keywords:} Clinical Informatics, Outpatient Triage, Exploratory Data Analysis, Diagnostic Ambiguity, Tableau Visual Analytics, Dataset Imbalance.
@@ -74,7 +74,7 @@ Under problem statement \textbf{MED-04: Symptoms to Disease}, a health analytics
 \textbf{Health Analytics Director, Clinical Informatics Operations Committee, and Emergency Department Triage Protocol Leads.} \\
 \addlinespace
 \textbf{PURPOSE} & Why does this decision matter to the organization? & 
-1. \textbf{Reduces Intake Duration:} Dynamic branching cuts patient intake time by $>60\%$, alleviating clinical check-in congestion.\newline
+1. \textbf{Projected Latency Reduction:} Targets an estimated $\sim 60\%$ intake questionnaire time reduction by replacing exhaustive 131-item checklists with dynamic 2-stage branching protocols.\newline
 2. \textbf{Prevents Diagnostic Harm:} Halts premature symptom-only discharge for ambiguous conditions (e.g., Viral Hepatitis or Malaria vs. Typhoid).\newline
 3. \textbf{Prevents Algorithmic Failure:} Prevents deploying overfitted models trained on synthetic benchmarks that fail in epidemiologically skewed real-world cohorts. \\
 \bottomrule
@@ -181,7 +181,7 @@ Outpatient clinics must dynamically allocate consultation time slots: high-burde
 \subsubsection{Design Choices (``Explain Your Choices'')}
 \begin{itemize}[noitemsep]
     \item \textbf{Why this graph?} A hierarchically clustered heatmap illustrates global clinical overlap topology across all 820 pairs, while the ranked horizontal bar chart isolates the top 12 critical ambiguity zones exceeding the $\ge 0.60$ safety threshold.
-    \item \textbf{Why this colour?} The perceptually uniform \texttt{YlOrRd} gradient ensures low-similarity pairs fade into light neutral cream, while dangerous overlaps ignite in dark red. In Panel B, crimson denotes intra-domain confusion and purple denotes cross-domain overlap.
+    \item \textbf{Why this colour?} The perceptually uniform \texttt{YlOrRd} gradient ensures low-similarity pairs fade into light neutral cream, while dangerous overlaps ignite in dark red. In Panel B, crimson denotes Hepato-Biliary specialty confusion (viral hepatitis variants, chronic cholestasis, jaundice) and steel blue denotes Infectious Disease confusion (pneumonia $\leftrightarrow$ tuberculosis, malaria $\leftrightarrow$ typhoid).
     \item \textbf{Why this aggregation?} Pairwise Cosine Similarity computed between 131-dimensional binary symptom vectors:
     \begin{equation}
         \text{Similarity}(D_i, D_j) = \frac{\mathbf{v}_i \cdot \mathbf{v}_j}{\|\mathbf{v}_i\| \|\mathbf{v}_j\|}
@@ -214,8 +214,8 @@ Symptom-based triage must never attempt to distinguish between conditions within
     \item \textbf{What should the reader notice?} The dataset exhibits a profound dual imbalance:
     \begin{enumerate}[noitemsep]
         \item \textit{Artificial Class Uniformity:} Exactly 120 cases per disease, which violently diverges from clinical reality where common colds outnumber hepatitis by $10,000:1$.
-        \item \textit{Pareto Long-Tail:} Just 28 symptoms (21.4\% of features) generate 50\% of all symptom occurrences, and 62 symptoms account for 80\%.
-        \item \textit{Dead Feature Bug:} \texttt{fluid\_overload} has exactly 0 occurrences due to the duplicate header bug identified during EDA.
+        \item \textit{Pareto Long-Tail:} Just 20 symptoms (15.3\% of features) generate 50.7\% of all symptom occurrences, and 66 symptoms account for 80.0\%. The remaining 65 symptoms represent an extensive sparse tail.
+        \item \textit{Raw Pipeline Artifact Reconciled:} In the raw benchmark, \texttt{fluid\_overload} possessed 0 occurrences due to an unpopulated duplicate header bug colliding with \texttt{fluid\_overload.1} (114 cases). Our pipeline reconciled this artifact, restoring 114 cases to Alcoholic Hepatitis.
     \end{enumerate}
 \end{itemize}
 

@@ -87,7 +87,7 @@ When presenting to your faculty evaluator:
 > 1. **Ubiquity vs. Specificity:** 61.1% of symptoms (80 out of 131) are pathognomonic anchors unique to a single disease, whereas only two symptoms—*fatigue* and *vomiting*—are ubiquitous chameleons shared across 17 diseases each.
 > 2. **Symptom Load Divergence:** Patient symptom burden varies 4-fold: Common Cold (17 symptoms) and Tuberculosis (16 symptoms) overwhelm multi-system review, whereas acute events like Heart Attack and UTI present with strictly 4 symptoms.
 > 3. **Critical Confusion Zones:** Hepatitis D and E share **83%** symptom overlap, Pneumonia and TB share **66.7%**, and Malaria and Typhoid share **63.6%**. Symptoms alone cannot differentiate these pairs; mandatory lab reflex testing is required.
-> 4. **Dataset Artifacts:** Each of the 41 diseases has an artificial flat quota of exactly 120 cases, masking real-world epidemiology, while symptom prevalence follows an extreme Pareto curve where 28 symptoms account for 50% of all patient mentions."
+> 4. **Dataset Artifacts:** Each of the 41 diseases has an artificial flat quota of exactly 120 cases, masking real-world epidemiology, while symptom prevalence follows an extreme Pareto curve where 20 symptoms account for >50% of all patient mentions (and 66 account for 80%)."
 
 ---
 

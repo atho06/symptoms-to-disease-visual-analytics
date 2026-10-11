@@ -205,24 +205,32 @@ ax_bar = fig.add_subplot(gs[1])
 top_pairs = df_pairwise.head(12).sort_values(by='cosine_similarity', ascending=True)
 
 pair_labels = [f"{r['disease_a']}  ↔  {r['disease_b']}" for _, r in top_pairs.iterrows()]
-pair_colors = ['#c0392b' if r['same_domain'] else '#8e44ad' for _, r in top_pairs.iterrows()]
+
+# Color by clinical domain (both domains represent intra-domain specialty confusion)
+domain_pair_colors = {
+    'Hepato-Biliary & Digestive': '#c0392b',
+    'Infectious Diseases': '#2980b9'
+}
+pair_colors = [domain_pair_colors.get(r['domain_a'], '#7f8c8d') for _, r in top_pairs.iterrows()]
 
 bars = ax_bar.barh(pair_labels, top_pairs['cosine_similarity'], color=pair_colors, height=0.6, edgecolor='black', linewidth=0.8)
-ax_bar.set_xlim(0, 1.0)
+ax_bar.set_xlim(0, 1.15)
+ax_bar.set_ylim(-2.2, 11.8)
 ax_bar.set_xlabel('Cosine Similarity Score', labelpad=10)
 ax_bar.set_title('B. Top 12 Clinically Ambiguous Disease Pairs (High Triage Misdirection Risk)', pad=15)
-ax_bar.axvline(0.60, color='#c0392b', linestyle='--', linewidth=1.5, label='High Ambiguity Threshold (>= 0.60)')
+ax_bar.axvline(0.60, color='#e74c3c', linestyle='--', linewidth=1.5, label='High Ambiguity Threshold (>= 0.60)')
 
 for bar in bars:
     w = bar.get_width()
     ax_bar.text(w + 0.02, bar.get_y() + bar.get_height()/2, f"{w*100:.1f}%", va='center', ha='left', fontsize=9, fontweight='bold', color='#2c3e50')
 
 legend_handles = [
-    Patch(facecolor='#c0392b', edgecolor='black', label='Intra-Domain Confusion (e.g. Viral Hepatitis)'),
-    Patch(facecolor='#8e44ad', edgecolor='black', label='Cross-Domain Overlap (e.g. Malaria ↔ Typhoid)'),
-    plt.Line2D([0], [0], color='#c0392b', linestyle='--', lw=1.5, label='High Ambiguity Threshold (0.60)')
+    Patch(facecolor='#c0392b', edgecolor='black', label='Hepato-Biliary Ambiguity (Hepatitis variants, Jaundice)'),
+    Patch(facecolor='#2980b9', edgecolor='black', label='Infectious Diseases Ambiguity (Pneumonia ↔ TB, Malaria ↔ Typhoid)'),
+    plt.Line2D([0], [0], color='#e74c3c', linestyle='--', lw=1.5, label='High Ambiguity Threshold (0.60)')
 ]
-ax_bar.legend(handles=legend_handles, loc='lower right', frameon=True, facecolor='#f8f9fa')
+# Positioned at lower right within expanded y-limits so no bars or labels are covered
+ax_bar.legend(handles=legend_handles, loc='lower right', frameon=True, facecolor='#f8f9fa', fontsize=8.5)
 
 plt.tight_layout()
 plt.savefig('figures/fig3_disease_similarity_confusion.png', dpi=300, bbox_inches='tight')
@@ -249,7 +257,8 @@ ax1.legend(loc='lower right', frameon=True)
 
 # Panel B: Symptom Long-Tail Pareto Distribution
 symp_freq_sorted = df_symptom_metrics.sort_values(by='patient_frequency', ascending=False).reset_index(drop=True)
-symp_freq_sorted['cum_pct'] = (symp_freq_sorted['patient_frequency'].cumsum() / symp_freq_sorted['patient_frequency'].sum()) * 100
+total_mentions = symp_freq_sorted['patient_frequency'].sum()
+symp_freq_sorted['cum_pct'] = (symp_freq_sorted['patient_frequency'].cumsum() / total_mentions) * 100
 
 ax2_twin = ax2.twinx()
 # Bar plot for frequency
@@ -257,10 +266,13 @@ ax2.bar(range(len(symp_freq_sorted)), symp_freq_sorted['patient_frequency'], col
 # Line plot for cumulative %
 ax2_twin.plot(range(len(symp_freq_sorted)), symp_freq_sorted['cum_pct'], color='#e67e22', linewidth=2.5, label='Cumulative Prevalence (%)')
 ax2_twin.axhline(80, color='#e74c3c', linestyle=':', linewidth=1.5, label='80% Pareto Cutoff')
+ax2_twin.axhline(50, color='#2980b9', linestyle=':', linewidth=1.2, alpha=0.7)
 
-# Find 80% cutoff point
-idx_80 = (symp_freq_sorted['cum_pct'] >= 80).idxmax()
+# Exact threshold counts (1-indexed count: index + 1)
+idx_50 = (symp_freq_sorted['cum_pct'] >= 50).idxmax() + 1   # 20 symptoms
+idx_80 = (symp_freq_sorted['cum_pct'] >= 80).idxmax() + 1   # 66 symptoms
 ax2.axvline(idx_80, color='#e74c3c', linestyle='--', linewidth=1.5)
+ax2.axvline(idx_50, color='#2980b9', linestyle='--', linewidth=1.2, alpha=0.7)
 
 ax2.set_title('B. Symptom Long-Tail & Pareto Inequity (Heavily Imbalanced Features)', pad=15)
 ax2.set_xlabel('131 Symptom Features (Ranked by Occurrence)', labelpad=10)
@@ -268,18 +280,19 @@ ax2.set_ylabel('Total Patient Occurrences in Cohort', labelpad=10)
 ax2_twin.set_ylabel('Cumulative Percentage (%)', labelpad=10, color='#e67e22')
 ax2_twin.set_ylim(0, 105)
 
-ax2.text(idx_80 + 5, 1200, f'Pareto Principle in Action:\nTop {idx_80} symptoms ({idx_80/131*100:.1f}%)\naccount for 80% of all mentions!\nRemaining {131-idx_80} are sparse tail.',
-         bbox=dict(boxstyle='round', facecolor='#fef9e7', edgecolor='#f39c12'), fontweight='bold', fontsize=9)
+ax2.text(idx_80 + 4, 1150, 
+         f'Pareto Principle in Action:\n• Top {idx_50} symptoms (15.3%) account for 50.7% of all mentions\n• Top {idx_80} symptoms (50.4%) account for 80.0% of all mentions\n• Remaining {131-idx_80} symptoms form the sparse tail (20.0%)',
+         bbox=dict(boxstyle='round', facecolor='#fef9e7', edgecolor='#f39c12'), fontweight='bold', fontsize=8.5)
 
-# Dead column callout
-ax2.annotate('Dead Feature Artifact:\n"fluid_overload" = 0 occurrences\n(Due to duplicate header bug)',
-             xy=(130, 0), xytext=(90, 400),
+# Reconciled data audit callout pointing to the true sparse tail
+ax2.annotate('Data Audit Reconciliation:\nRaw "fluid_overload" had 0 mentions\n(due to duplicate header bug);\nreconciled to 114 cases during audit.',
+             xy=(118, 114), xytext=(72, 450),
              arrowprops=dict(facecolor='#c0392b', shrink=0.05, width=1.5, headwidth=7),
              bbox=dict(boxstyle='round', facecolor='#fadbd8', edgecolor='#c0392b'), fontweight='bold', fontsize=8)
 
 lines1, labels1 = ax2.get_legend_handles_labels()
 lines2, labels2 = ax2_twin.get_legend_handles_labels()
-ax2.legend(lines1 + lines2, labels1 + labels2, loc='center right', frameon=True, facecolor='#ffffff')
+ax2.legend(lines1 + lines2, labels1 + labels2, loc='center right', frameon=True, facecolor='#ffffff', fontsize=8.5)
 
 plt.tight_layout()
 plt.savefig('figures/fig4_dataset_imbalance_pareto.png', dpi=300, bbox_inches='tight')

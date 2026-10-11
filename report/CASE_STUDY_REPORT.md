@@ -14,7 +14,7 @@ We formulate five analytical questions formulated prior to graphical design and 
 1. **Symptom Ubiquity vs. Specificity:** An extreme bimodal spectrum where 61.1% of symptoms are pathognomonic anchors while only two symptoms (*fatigue* and *vomiting*) span over 41% of conditions.
 2. **Disease Complexity & Burden:** A four-fold disparity in patient symptom burden ranging from 4 symptoms in acute cardiac/urinary events to 17 symptoms in multi-system viral infections.
 3. **Diagnostic Ambiguity Zones:** Severe diagnostic ambiguity exceeding 80% cosine overlap among viral hepatitis variants and 63–67% between malaria/typhoid and pneumonia/tuberculosis.
-4. **Structural Dataset Imbalance:** An extreme Pareto symptom distribution where 28 symptoms generate 50% of all clinical mentions, contrasted against an artificial flat disease quota.
+4. **Structural Dataset Imbalance:** An extreme Pareto symptom distribution where the top 20 symptoms generate >50% of all clinical mentions (and 66 symptoms generate 80%), contrasted against an artificial flat disease quota.
 5. **Syndromic Co-occurrence Clusters:** Distinct clinical syndromic blocks (Hepato-Biliary, Febrile-Systemic) that justify modular questionnaire branching.
 
 Based on these findings, we propose a modular two-stage dynamic intake triage architecture and automated laboratory reflex safety rails.
@@ -32,7 +32,7 @@ Under problem statement **MED-04: Symptoms to Disease**, a health analytics team
 | :--- | :--- | :--- |
 | **ACTION** | What specific action or decision should this analysis support? | 1. Transition static 131-item intake questionnaires into dynamic, two-stage branching triage protocols.<br>2. Establish mandatory automated laboratory reflex orders for disease pairs exhibiting high symptom overlap ($\ge 0.60$ cosine similarity).<br>3. Recalibrate clinical machine learning pipelines to correct for synthetic class balance and dead-feature artifacts prior to hospital deployment. |
 | **TARGET** | Who is the primary audience and decision-maker? | **Health Analytics Director, Clinical Informatics Operations Committee, and Emergency Department Triage Protocol Leads.** |
-| **PURPOSE** | Why does this decision matter to the organization? | 1. **Reduces Intake Duration:** Dynamic branching cuts patient intake time by $>60\%$, alleviating clinical check-in congestion.<br>2. **Prevents Diagnostic Harm:** Halts premature symptom-only discharge for ambiguous conditions (e.g., Viral Hepatitis or Malaria vs. Typhoid).<br>3. **Prevents Algorithmic Failure:** Prevents deploying overfitted models trained on synthetic benchmarks that fail in epidemiologically skewed real-world cohorts. |
+| **PURPOSE** | Why does this decision matter to the organization? | 1. **Projected Latency Reduction:** Targets an estimated $\sim 60\%$ intake questionnaire time reduction by replacing exhaustive checklists with dynamic 2-stage branching protocols.<br>2. **Prevents Diagnostic Harm:** Halts premature symptom-only discharge for ambiguous conditions (e.g., Viral Hepatitis or Malaria vs. Typhoid).<br>3. **Prevents Algorithmic Failure:** Prevents deploying overfitted models trained on synthetic benchmarks that fail in epidemiologically skewed real-world cohorts. |
 
 ---
 
@@ -119,8 +119,8 @@ Diseases were grouped into 6 clinical hospital departments:
   * *Why this aggregation?* Cumulative sum percentage of symptom occurrences against descending rank order.
   * *What should the reader notice?* 
     1. Exactly 120 cases per disease represents a synthetic distribution completely disconnected from real-world incidence.
-    2. Pareto principle in action: just 28 out of 131 symptoms account for 50% of all symptom occurrences, and 62 symptoms account for 80%.
-    3. The zero-variance dead feature `fluid_overload` (0 occurrences) reveals data pipeline artifacting.
+    2. Pareto principle in action: just 20 out of 131 symptoms (15.3%) account for 50.7% of all symptom occurrences, and 66 symptoms (50.4%) account for 80.0%. The remaining 65 symptoms represent an extensive sparse tail.
+    3. Raw data bug reconciled: raw `fluid_overload` had 0 occurrences due to duplicate header collision with `fluid_overload.1` (114 cases in Alcoholic Hepatitis); reconciled to 114 valid occurrences during audit.
 * **Operational Action:** Machine learning models trained on this synthetic dataset must be recalibrated with real-world epidemiological Bayesian priors before deployment to prevent severe false positive spikes.
 
 ---
@@ -142,7 +142,7 @@ Diseases were grouped into 6 clinical hospital departments:
 ---
 
 ## 5. Strategic Recommendations for Healthcare Operations
-1. **Dynamic Branching Intake Protocol:** Replace the static 131-item intake questionnaire with a 2-stage dynamic workflow, cutting questionnaire duration by $>60\%$.
+1. **Dynamic Branching Intake Protocol:** Replace the static 131-item intake questionnaire with a 2-stage dynamic workflow, targeting an estimated ~60% reduction in questionnaire completion duration.
 2. **Automated Laboratory Reflex Safety Rails:** Insert hard EHR decision stops for disease pairs with similarity $\ge 0.60$, enforcing mandatory confirmatory blood and imaging tests.
 3. **Bayesian Base-Rate Prior Recalibration:** Recalibrate all CDSS models using real-world hospital epidemiological disease incidence before clinical deployment.
 
