@@ -19,13 +19,11 @@ cells.append(nbf.v4.new_markdown_cell("""# 23CSE353 - Data Visualization Case St
 
 ---
 
-* **Author:** Athirasree A S (Roll No: BL.SC.U4CSE24205)
-* **Institution:** Dept. of Computer Science and Engineering, Amrita School of Computing, Bengaluru
-* **Email:** bl.sc.u4cse24205@bl.students.amrita.edu
-* **Topic Code:** MED-04 (Medical Records & Clinical Informatics)
-* **Dataset:** Disease Prediction Based on Symptoms (Kaggle / Curated Benchmark)
+* **Course:** 23CSE353 -- Data Visualization
+* **Problem Code:** MED-04 (Symptoms to Disease: Understanding Patterns in Medical Records)
+* **Dataset:** Disease Prediction Based on Symptoms (Kaggle Open Benchmark)
 * **Primary Tools:** Python (Pandas, NumPy, Matplotlib, Seaborn, Scikit-Learn), Tableau Desktop/Public, LaTeX
-* **Submission Deadline:** 15 October 2026
+* **Submission Date:** October 2026
 
 ---"""))
 
