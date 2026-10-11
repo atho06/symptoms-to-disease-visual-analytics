@@ -8,7 +8,17 @@
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{enumitem}
+\usepackage{dblfloatfix}
+\usepackage{placeins}
 \graphicspath{{figures/}{report/figures/}{./}}
+
+% Aggressive float placement to prevent figure drifting
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\dbltopfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.85}
+\renewcommand{\dblfloatpagefraction}{0.85}
 
 % Hyperlink configuration
 \hypersetup{
@@ -130,7 +140,7 @@ Below, we present the visual evidence answering each analytical question, accomp
 \subsection{Question 1: Symptom Ubiquity vs. Specificity Spectrum}
 \begin{figure*}[t]
     \centering
-    \includegraphics[width=0.92\textwidth]{figures/fig1_symptom_ubiquity_specificity.png}
+    \includegraphics[width=0.82\textwidth]{figures/fig1_symptom_ubiquity_specificity.png}
     \caption{\textbf{Symptom Ubiquity vs. Specificity Spectrum.} Panel A ranks the top 15 most ubiquitous symptoms by disease span and cohort prevalence. Panel B illustrates the four-tier specificity breakdown across all 131 symptoms.}
     \label{fig:q1}
 \end{figure*}
@@ -150,7 +160,7 @@ Triage forms should not present all symptoms uniformly. Stage-1 triage should qu
 \subsection{Question 2: Disease Complexity \& Patient Symptom Burden}
 \begin{figure*}[t]
     \centering
-    \includegraphics[width=0.90\textwidth]{figures/fig2_disease_complexity_burden.png}
+    \includegraphics[width=0.76\textwidth]{figures/fig2_disease_complexity_burden.png}
     \caption{\textbf{Patient Symptom Burden Distribution Across 41 Medical Conditions.} Boxplots show median and interquartile range of co-manifesting symptoms, color-coded by Clinical Specialty Domain.}
     \label{fig:q2}
 \end{figure*}
@@ -170,7 +180,7 @@ Outpatient clinics must dynamically allocate consultation time slots: high-burde
 \subsection{Question 3: Disease Pairwise Similarity \& Diagnostic Ambiguity}
 \begin{figure*}[t]
     \centering
-    \includegraphics[width=0.92\textwidth]{figures/fig3_disease_similarity_confusion.png}
+    \includegraphics[width=0.82\textwidth]{figures/fig3_disease_similarity_confusion.png}
     \caption{\textbf{Disease Pairwise Similarity \& Triage Confusion Zones.} Panel A displays the $41 \times 41$ hierarchically clustered cosine similarity matrix. Panel B highlights the top 12 highest-risk ambiguous disease pairs ($\ge 0.60$ overlap).}
     \label{fig:q3}
 \end{figure*}
@@ -198,7 +208,7 @@ Symptom-based triage must never attempt to distinguish between conditions within
 \subsection{Question 4: Structural Imbalance \& Synthetic Artifacts}
 \begin{figure*}[t]
     \centering
-    \includegraphics[width=0.90\textwidth]{figures/fig4_dataset_imbalance_pareto.png}
+    \includegraphics[width=0.76\textwidth]{figures/fig4_dataset_imbalance_pareto.png}
     \caption{\textbf{Structural Imbalance \& Pareto Feature Inequity.} Panel A highlights the synthetic uniform disease balance (120 records each). Panel B illustrates the severe long-tail Pareto distribution of symptom occurrences and the zero-variance artifact.}
     \label{fig:q4}
 \end{figure*}
@@ -223,7 +233,7 @@ Hospital data teams must reject naive machine learning accuracy claims on this b
 \subsection{Question 5: Symptom Co-occurrence \& Syndromic Clusters}
 \begin{figure*}[t]
     \centering
-    \includegraphics[width=0.82\textwidth]{figures/fig5_symptom_cooccurrence_clusters.png}
+    \includegraphics[width=0.72\textwidth]{figures/fig5_symptom_cooccurrence_clusters.png}
     \caption{\textbf{Symptom Co-occurrence Matrix (Top 22 Symptoms).} Pearson correlation matrix with masked upper triangle, isolating clinical syndromic archetypes.}
     \label{fig:q5}
 \end{figure*}
@@ -243,6 +253,7 @@ Hospital data teams must reject naive machine learning accuracy claims on this b
 \subsubsection{Clinical Takeaway \& Action}
 Electronic triage forms should be structured into modular syndrome blocks. Checking a single lead symptom (e.g., jaundice) should trigger an immediate child prompt querying the remainder of the Hepato-Biliary cluster, eliminating the need to review unrelated physical systems.
 
+\FloatBarrier
 % ------------------------------------------------------------------------------
 \section{Operational Decision-Making Recommendations}
 Synthesizing the analytical findings into the ATP mandate, we deliver three executive recommendations for the Health Analytics Director:
@@ -276,6 +287,7 @@ The Tableau storyboard links the four core sheets with clean visual hierarchy. C
 \section{Conclusion \& Academic Integrity}
 This investigation demonstrates that exploratory data visualization is a powerful investigative tool for healthcare operations when structured around a clear decision-making framework. By transforming raw medical symptom records into an actionable visual roadmap, we identified the fundamental boundaries of symptom-based screening, uncovered synthetic data limitations, and provided practical recommendations to enhance clinical triage efficiency and patient safety.
 
+\FloatBarrier
 \begin{thebibliography}{99}
 
 \bibitem{gilboy2011emergency}
