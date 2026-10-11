@@ -71,7 +71,7 @@ Diseases were grouped into 6 clinical hospital departments:
   * *Why this colour?* High-ambiguity chameleon symptoms ($\ge 10$ diseases) are encoded in warning Crimson (`#c0392b`), while high-certainty pathognomonic anchors are encoded in Forest Green (`#27ae60`).
   * *Why this aggregation?* Distinct disease count (`COUNTD(prognosis)`) and total patient prevalence percentage.
   * *What should the reader notice?* An extreme bimodal partition: **61.1% of all symptoms (80 out of 131)** are strictly *monospecific* (exclusive to a single disease), whereas a tiny core of symptoms (*fatigue* and *vomiting*, each spanning 17 diseases / 41.5% of conditions) act as pervasive chameleons.
-* **Operational Action:** Implement a 2-stage dynamic questionnaire: screen the top 10 systemic chameleon symptoms first, then dynamically trigger candidate pathognomonic anchors to confirm the diagnosis in 2–4 queries.
+* **Operational Action:** Implement a 2-stage dynamic questionnaire: screen the top 10 systemic chameleon symptoms first, then dynamically trigger candidate pathognomonic anchors to confirm the diagnosis in minimal targeted queries.
 
 ---
 
@@ -85,7 +85,7 @@ Diseases were grouped into 6 clinical hospital departments:
   * *Why this colour?* Six distinct categorical hues represent hospital clinical specialty departments, enabling instant visual appraisal of domain-level complexity patterns.
   * *Why this aggregation?* Row-level summation of active symptoms per encounter, aggregated by Mean, Median, and IQR per disease.
   * *What should the reader notice?* A dramatic 4-fold disparity: Common Cold ($\bar{x} = 17$ symptoms), Tuberculosis ($\bar{x} = 16$), and Dengue ($\bar{x} = 14$) represent high-burden multi-system infections. In contrast, conditions like Heart Attack, UTI, and Paralysis present with strictly 4 symptoms.
-* **Operational Action:** Dynamically schedule triage consultation slots: allocate 25 minutes for high-burden multi-system viral/respiratory conditions, while routing low-burden acute presentations into focused fast-track triage streams.
+* **Operational Action:** Dynamically schedule triage consultation slots: allocate extended consultation slots for high-burden multi-system viral/respiratory conditions, while routing low-burden acute presentations into focused fast-track triage streams.
 
 ---
 
